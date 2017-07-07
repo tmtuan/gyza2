@@ -8,13 +8,15 @@
 
 import UIKit
 
-class HomeController: UICollectionViewController {
+class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         navigationItem.title = "Gyza"
+        
+        collectionView?.backgroundColor = UIColor.white
         
         let cellIdentifier = "cellId"
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
@@ -29,6 +31,11 @@ class HomeController: UICollectionViewController {
         
         cell.backgroundColor = UIColor.red
         return cell
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 200)
     }
 }
 
