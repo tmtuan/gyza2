@@ -10,9 +10,38 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    // MARK: Properties
+    var packages = [Package]()
+    
+    // MARK: Methods
+    func fetchPackages() {
+        let url = URL(string: "https://api.gyza.vn/api/packages")
+        URLSession.shared.dataTask(with: url!) {
+            (data, response, error) in
+            
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                print(json)
+            
+            } catch let jsonError {
+                print(jsonError)
+            }
+            
+            
+        }.resume()
+        
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        fetchPackages()
         
         navigationItem.title = "Gyza"
         
