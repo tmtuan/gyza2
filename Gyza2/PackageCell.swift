@@ -11,6 +11,13 @@ import UIKit
 class PackageCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setupViews()
+    }
+    
+    func setupViews() {
+        backgroundColor = UIColor.blue
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

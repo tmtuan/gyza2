@@ -19,7 +19,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.backgroundColor = UIColor.white
         
         let cellIdentifier = "cellId"
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier)
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -29,7 +29,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
         
-        cell.backgroundColor = UIColor.red
+       
         return cell
     }
     
