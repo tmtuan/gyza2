@@ -11,9 +11,19 @@ import UIKit
 class PackageCell: UICollectionViewCell {
     
     // MARK: Properties
+    var package: Package? {
+        didSet {
+            
+            setupThumbnailImage()
+            nameLabel.text = package?.name
+            titleLabel.text = package?.designer
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView =  UIImageView()
-        imageView.backgroundColor = UIColor.gray
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         
         return imageView
@@ -22,18 +32,19 @@ class PackageCell: UICollectionViewCell {
     let publisherProfileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.black
+        imageView.image = UIImage(named: "sampleAvatar")
+        imageView.layer.cornerRadius = 22
+        imageView.layer.masksToBounds = true
         return imageView
     }()
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.purple
         return label
     }()
     
     let titleLabel: UILabel = {
         let title = UILabel()
-        title.backgroundColor = UIColor.red
         return title
     }()
     
@@ -45,10 +56,36 @@ class PackageCell: UICollectionViewCell {
     }()
     
     
+    // MARK: Initializers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Methods
+    
+    func setupThumbnailImage() {
+        
+        if let thumbnailImageUrl = package?.photo {
+            
+            let url = URL(string: thumbnailImageUrl)
+            URLSession.shared.dataTask(with: url!, completionHandler: {
+                (data, response, error) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                self.thumbnailImageView.image = UIImage(data: data!)
+            }).resume()
+        }
     }
     
     func setupViews() {
@@ -76,7 +113,5 @@ class PackageCell: UICollectionViewCell {
        
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
 }

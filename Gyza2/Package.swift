@@ -18,7 +18,9 @@ class Package: NSObject {
     var location: String?
     var category: String?
     var status: String?
-    var photo: UIImage?
+    var photo: String?
+    var slug: String?
     var styleTags = [String]()
 
 }
+

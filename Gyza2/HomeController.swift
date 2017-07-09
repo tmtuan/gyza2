@@ -26,12 +26,73 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-                print(json)
             
+                if let rootDictionary = json as? [String: Any] {
+                    
+                    for packageDictionary in rootDictionary["results"] as! [[String: Any]]   {
+                        let pack = Package()
+                        
+                        // name
+                        if let name = packageDictionary["name"] as? [String: Any] {
+                            if let en_name = name["en"] as? String {
+                                pack.name = en_name
+                            }
+                        }
+                        
+                        // photopgrapher
+                        if let photographer = packageDictionary["photographer"] as? String {
+                            pack.photographer = photographer
+                        }
+                        
+                        // designer
+                        if let designer = packageDictionary["designer"] as? String {
+                            pack.designer = designer
+                        }
+                        
+                        // category
+                        if let category = packageDictionary["category"] as? String {
+                            pack.category = category
+                        }
+                        
+                        // location
+                        if let location = packageDictionary["location"] as? String {
+                            pack.location = location
+                        }
+                        
+                        // address
+                        if let address = packageDictionary["address"] as? String {
+                            pack.address = address
+                        }
+                        
+                        // slug
+                        if let slug = packageDictionary["slug"] as? String {
+                            pack.slug = slug
+                        }
+                        
+                        // style tags
+                        if let styleTags = packageDictionary["styleTags"] as? [String: Any] {
+                            if let styleTagsEn = styleTags["en"] as? [String] {
+                                for tag in styleTagsEn {
+                                    pack.styleTags += [tag]
+                                }
+                            }
+                        }
+                        
+                        // photo
+                        if let gallery = packageDictionary["gallery"] as? [String: Any] {
+                            if let largePhoto = gallery["large"] as? [String: Any] {
+                                if let secureUrl = largePhoto["secure_url"] as? String {
+                                    pack.photo = secureUrl
+                                }
+                            }
+                        }
+                        self.packages += [pack]
+                    }
+                    self.collectionView?.reloadData()
+                }
             } catch let jsonError {
                 print(jsonError)
             }
-            
             
         }.resume()
         
@@ -52,19 +113,20 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.packages.count 
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PackageCell
+     
+        cell.package = packages[indexPath.item]
        
         return cell
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+        return CGSize(width: view.frame.width, height: 400)
     }
 }
 
