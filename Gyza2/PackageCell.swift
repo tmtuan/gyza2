@@ -14,9 +14,13 @@ class PackageCell: UICollectionViewCell {
     var package: Package? {
         didSet {
             
-            setupThumbnailImage()
+            setupImage(imageView: thumbnailImageView, url: package?.photo)
+            setupImage(imageView: publisherProfileImageView, url: package?.user?.avatar)
+           
             nameLabel.text = package?.name
             titleLabel.text = package?.designer
+            
+            
         }
     }
     
@@ -31,10 +35,10 @@ class PackageCell: UICollectionViewCell {
     
     let publisherProfileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.black
-        imageView.image = UIImage(named: "sampleAvatar")
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
+        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         return imageView
     }()
     
@@ -70,11 +74,12 @@ class PackageCell: UICollectionViewCell {
     
     // MARK: Methods
     
-    func setupThumbnailImage() {
-        
-        if let thumbnailImageUrl = package?.photo {
+    // Load image from url string
+    func setupImage(imageView: UIImageView, url: String?) {
+       
+        if let imageUrl = url {
             
-            let url = URL(string: thumbnailImageUrl)
+            let url = URL(string: imageUrl)
             URLSession.shared.dataTask(with: url!, completionHandler: {
                 (data, response, error) in
                 
@@ -83,9 +88,10 @@ class PackageCell: UICollectionViewCell {
                     return
                 }
                 
-                self.thumbnailImageView.image = UIImage(data: data!)
+                imageView.image = UIImage(data: data!)
             }).resume()
         }
+
     }
     
     func setupViews() {

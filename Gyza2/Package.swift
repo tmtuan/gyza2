@@ -22,5 +22,6 @@ class Package: NSObject {
     var slug: String?
     var styleTags = [String]()
 
+    var user: User?
 }
 
