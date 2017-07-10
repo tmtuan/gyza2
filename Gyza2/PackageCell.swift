@@ -72,6 +72,9 @@ class PackageCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Cache images for better display
+    let imageCache = NSCache<NSString, UIImage>()
+    
     // MARK: Methods
     
     // Load image from url string
@@ -81,6 +84,11 @@ class PackageCell: UICollectionViewCell {
        
         if let imageUrl = url {
             
+            if let imageFromCache = imageCache.object(forKey: NSString(string: imageUrl)) {
+                imageView.image = imageFromCache
+                return
+            }
+        
             let url = URL(string: imageUrl)
             URLSession.shared.dataTask(with: url!, completionHandler: {
                 (data, response, error) in
@@ -90,7 +98,12 @@ class PackageCell: UICollectionViewCell {
                     return
                 }
                 DispatchQueue.main.async {
-                    imageView.image = UIImage(data: data!)
+                    
+                    let imageToCache = UIImage(data: data!)
+                    
+                    self.imageCache.setObject(imageToCache!, forKey: NSString(string: imageUrl))
+                    
+                    imageView.image = imageToCache
                 }
             }).resume()
         }
