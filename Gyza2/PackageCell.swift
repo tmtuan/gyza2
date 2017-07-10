@@ -14,18 +14,19 @@ class PackageCell: UICollectionViewCell {
     var package: Package? {
         didSet {
             
-            setupImage(imageView: thumbnailImageView, url: package?.photo)
-            setupImage(imageView: publisherProfileImageView, url: package?.user?.avatar)
-           
+            //setupImage(imageView: thumbnailImageView, url: package?.photo)
+            //setupImage(imageView: publisherProfileImageView, url: package?.user?.avatar)
+            thumbnailImageView.setupImage(url: package?.photo, imageCache: imageCache)
+            publisherProfileImageView.setupImage(url: package?.user?.avatar, imageCache: imageCache)
             nameLabel.text = package?.name
             titleLabel.text = package?.designer
-            
             
         }
     }
     
-    let thumbnailImageView: UIImageView = {
-        let imageView =  UIImageView()
+    let thumbnailImageView: CustomImageView = {
+        let imageView =  CustomImageView()
+        
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
@@ -33,8 +34,8 @@ class PackageCell: UICollectionViewCell {
         return imageView
     }()
     
-    let publisherProfileImageView: UIImageView = {
-        let imageView = UIImageView()
+    let publisherProfileImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
@@ -79,6 +80,8 @@ class PackageCell: UICollectionViewCell {
     
     // Load image from url string
     func setupImage(imageView: UIImageView, url: String?) {
+        
+    
         
         imageView.image = nil
        
@@ -136,4 +139,47 @@ class PackageCell: UICollectionViewCell {
     }
     
     
+}
+
+class CustomImageView: UIImageView {
+    
+    var imageUrlString: String?
+    
+    func setupImage(url: String?, imageCache: NSCache<NSString, UIImage>) {
+        
+        imageUrlString = url
+        
+        self.image = nil
+        
+        if let imageUrl = url {
+            
+            if let imageFromCache = imageCache.object(forKey: NSString(string: imageUrl)) {
+                self.image = imageFromCache
+                return
+            }
+            
+            let url = URL(string: imageUrl)
+            URLSession.shared.dataTask(with: url!, completionHandler: {
+                (data, response, error) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    let imageToCache = UIImage(data: data!)
+                    
+                    if self.imageUrlString == imageUrl {
+                            self.image = imageToCache
+                    }
+                    
+                    imageCache.setObject(imageToCache!, forKey: NSString(string: imageUrl))
+                    
+                    
+                }
+            }).resume()
+        }
+    }
+
 }
