@@ -55,7 +55,7 @@ class PackageCell: UICollectionViewCell {
     
     let separatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.gray
         return view
     }()
     
@@ -76,6 +76,8 @@ class PackageCell: UICollectionViewCell {
     
     // Load image from url string
     func setupImage(imageView: UIImageView, url: String?) {
+        
+        imageView.image = nil
        
         if let imageUrl = url {
             
@@ -87,8 +89,9 @@ class PackageCell: UICollectionViewCell {
                     print(error!)
                     return
                 }
-                
-                imageView.image = UIImage(data: data!)
+                DispatchQueue.main.async {
+                    imageView.image = UIImage(data: data!)
+                }
             }).resume()
         }
 
