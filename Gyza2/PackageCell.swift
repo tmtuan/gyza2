@@ -104,6 +104,8 @@ class PackageCell: UICollectionViewCell {
                     
                     let imageToCache = UIImage(data: data!)
                     
+                    
+                    
                     self.imageCache.setObject(imageToCache!, forKey: NSString(string: imageUrl))
                     
                     imageView.image = imageToCache

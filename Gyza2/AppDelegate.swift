@@ -21,8 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let layout = UICollectionViewFlowLayout()
         
-        window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
+        //window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         
+        window?.rootViewController = UITabBarController()
+        
+        //UINavigationBar.appearance().barTintColor = UIColor.black
+        
+        UIApplication.shared.statusBarStyle = .lightContent
         
         return true
     }
