@@ -19,6 +19,11 @@ class CustomTabBarController: UITabBarController {
         navigationController.title = "Interior"
         navigationController.tabBarItem.image = UIImage(named: "home")
         
-        viewControllers = [navigationController]
+        let collectionController = UIViewController()
+        let secondNavigationController = UINavigationController(rootViewController: collectionController)
+        secondNavigationController.title = "Collection"
+        secondNavigationController.tabBarItem.image = UIImage(named: "collection")
+        
+        viewControllers = [navigationController, secondNavigationController]
     }
 }
