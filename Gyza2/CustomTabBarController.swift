@@ -16,6 +16,9 @@ class CustomTabBarController: UITabBarController {
         let layout = UICollectionViewFlowLayout()
         let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
     
+        navigationController.title = "Interior"
+        navigationController.tabBarItem.image = UIImage(named: "home")
+        
         viewControllers = [navigationController]
     }
 }
