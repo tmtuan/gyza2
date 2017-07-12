@@ -19,11 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let layout = UICollectionViewFlowLayout()
-        
-        //window?.rootViewController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
-        
-        window?.rootViewController = UITabBarController()
+        window?.rootViewController = CustomTabBarController()
         
         //UINavigationBar.appearance().barTintColor = UIColor.black
         
