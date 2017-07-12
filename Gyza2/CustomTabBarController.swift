@@ -15,7 +15,6 @@ class CustomTabBarController: UITabBarController {
         
         let layout = UICollectionViewFlowLayout()
         let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
-    
         navigationController.title = "Interior"
         navigationController.tabBarItem.image = UIImage(named: "home")
         
@@ -24,6 +23,20 @@ class CustomTabBarController: UITabBarController {
         secondNavigationController.title = "Collection"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         
-        viewControllers = [navigationController, secondNavigationController]
+        let starController = UIViewController()
+        let thirdNavigationController = UINavigationController(rootViewController: starController)
+        thirdNavigationController.title = "Favorites"
+        thirdNavigationController.tabBarItem.image = UIImage(named: "star")
+        
+        let chatController = UIViewController()
+        let fourthNavigationController = UINavigationController(rootViewController: chatController)
+        fourthNavigationController.title = "Messages"
+        fourthNavigationController.tabBarItem.image = UIImage(named: "chat")
+
+        
+
+        
+        
+        viewControllers = [navigationController, secondNavigationController, thirdNavigationController, fourthNavigationController]
     }
 }
