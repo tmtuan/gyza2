@@ -154,6 +154,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier)
     }
 
+    // MARK: UICollectionView Methods
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.packages.count 
     }
