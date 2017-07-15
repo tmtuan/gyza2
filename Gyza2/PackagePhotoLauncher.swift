@@ -8,9 +8,18 @@
 
 import UIKit
 class PhotoPlayerView: UIView {
+    
+    var photoImageView: CustomImageView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.black
+        
+        photoImageView = CustomImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        photoImageView?.backgroundColor = UIColor.blue
+        photoImageView?.contentMode = .scaleAspectFit
+        photoImageView?.clipsToBounds = true
+        self.addSubview(photoImageView!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -20,8 +29,9 @@ class PhotoPlayerView: UIView {
 
 class PackagePhotoLauncher: NSObject {
     
-    func showPhoto() {
-        print("Showing photo")
+    func showPhoto(package: Package) {
+        
+        
         
         if let keyWindow = UIApplication.shared.keyWindow {
      
@@ -33,7 +43,7 @@ class PackagePhotoLauncher: NSObject {
             let height = keyWindow.frame.width * 9 / 16
             let photoPlayerFrame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
             let photoPlayerView = PhotoPlayerView(frame: photoPlayerFrame)
-            
+            photoPlayerView.photoImageView?.setupImage(url: package.photo)
             
             view.addSubview(photoPlayerView)
             
@@ -45,7 +55,7 @@ class PackagePhotoLauncher: NSObject {
             
             }, completion: {(completedAnimation) in
                 // Do something here later
-                
+        
             })
         }
      

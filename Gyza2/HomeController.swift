@@ -175,7 +175,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let packagePhotoLauncher = PackagePhotoLauncher()
-        packagePhotoLauncher.showPhoto()
+        
+        let package = packages[indexPath.item]
+        packagePhotoLauncher.showPhoto(package: package)
         
     }
 }

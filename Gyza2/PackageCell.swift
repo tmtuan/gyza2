@@ -147,6 +147,32 @@ class CustomImageView: UIImageView {
     
     var imageUrlString: String?
     
+    func setupImage(url: String?) {
+        
+        imageUrlString = url
+        
+        self.image = nil
+        
+        if let imageUrl = url {
+            
+            let url = URL(string: imageUrl)
+            URLSession.shared.dataTask(with: url!, completionHandler: {
+                (data, response, error) in
+                
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                DispatchQueue.main.async {
+                    
+                    self.image = UIImage(data: data!)
+                    
+                }
+            }).resume()
+        }
+    }
+
+    
     func setupImage(url: String?, imageCache: NSCache<NSString, UIImage>) {
         
         imageUrlString = url
