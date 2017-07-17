@@ -139,6 +139,12 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }.resume()
         
     }
+    
+    func handleLogin() {
+        
+        let loginController = LoginViewController()
+        present(loginController, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,6 +153,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         fetchPackages()
         
         navigationItem.title = "Gyza"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
         collectionView?.backgroundColor = UIColor.white
         
@@ -154,6 +161,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier)
     }
 
+    
     // MARK: UICollectionView Methods
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
