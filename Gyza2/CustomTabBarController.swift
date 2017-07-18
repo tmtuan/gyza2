@@ -19,27 +19,29 @@ class CustomTabBarController: UITabBarController {
         navigationController.tabBarItem.image = UIImage(named: "home")
         
         let collectionController = UIViewController()
+        collectionController.view.backgroundColor = UIColor.yellow
         collectionController.navigationItem.title = "Collection"
         let secondNavigationController = UINavigationController(rootViewController: collectionController)
         secondNavigationController.title = "Collection"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         
         let starController = UIViewController()
+        starController.view.backgroundColor = UIColor.red
         starController.navigationItem.title = "Favorites"
         let thirdNavigationController = UINavigationController(rootViewController: starController)
         thirdNavigationController.title = "Favorites"
         thirdNavigationController.tabBarItem.image = UIImage(named: "star")
         
-        let accountController = UIViewController()
+        let accountController = LoginViewController()
         accountController.navigationItem.title = "Account"
         let fourthNavigationController = UINavigationController(rootViewController: accountController)
+        fourthNavigationController.setNavigationBarHidden(true, animated: true)
         fourthNavigationController.title = "Account"
         fourthNavigationController.tabBarItem.image = UIImage(named: "user_profile")
 
-        
-
-        
-        
         viewControllers = [navigationController, secondNavigationController, thirdNavigationController, fourthNavigationController]
+
+        // make the tab menu translucent or not - up to you
+        // tabBar.isTranslucent = false
     }
 }
