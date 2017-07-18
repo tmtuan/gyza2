@@ -86,9 +86,15 @@ class LoginViewController: UIViewController {
         let sc = UISegmentedControl(items: ["Login", "Register"])
         sc.tintColor = UIColor.white
         sc.translatesAutoresizingMaskIntoConstraints = false
-        sc.selectedSegmentIndex = 1 
+        sc.selectedSegmentIndex = 1
+        sc.addTarget(self, action: #selector(handleLoginRegisterChanged), for: .valueChanged)
         return sc
     }()
+    
+    func handleLoginRegisterChanged() {
+        let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
+        loginRegisterButton.setTitle(title, for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,7 +184,7 @@ class LoginViewController: UIViewController {
         loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginRegisterSegmentedControl.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -12).isActive = true
         loginRegisterSegmentedControl.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle  {
