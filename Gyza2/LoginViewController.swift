@@ -86,6 +86,7 @@ class LoginViewController: UIViewController {
         let sc = UISegmentedControl(items: ["Login", "Register"])
         sc.tintColor = UIColor.white
         sc.translatesAutoresizingMaskIntoConstraints = false
+        sc.selectedSegmentIndex = 1 
         return sc
     }()
     
