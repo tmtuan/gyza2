@@ -19,19 +19,22 @@ class CustomTabBarController: UITabBarController {
         navigationController.tabBarItem.image = UIImage(named: "home")
         
         let collectionController = UIViewController()
+        collectionController.navigationItem.title = "Collection"
         let secondNavigationController = UINavigationController(rootViewController: collectionController)
         secondNavigationController.title = "Collection"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         
         let starController = UIViewController()
+        starController.navigationItem.title = "Favorites"
         let thirdNavigationController = UINavigationController(rootViewController: starController)
         thirdNavigationController.title = "Favorites"
         thirdNavigationController.tabBarItem.image = UIImage(named: "star")
         
-        let chatController = UIViewController()
-        let fourthNavigationController = UINavigationController(rootViewController: chatController)
-        fourthNavigationController.title = "Messages"
-        fourthNavigationController.tabBarItem.image = UIImage(named: "chat")
+        let accountController = UIViewController()
+        accountController.navigationItem.title = "Account"
+        let fourthNavigationController = UINavigationController(rootViewController: accountController)
+        fourthNavigationController.title = "Account"
+        fourthNavigationController.tabBarItem.image = UIImage(named: "user_profile")
 
         
 
