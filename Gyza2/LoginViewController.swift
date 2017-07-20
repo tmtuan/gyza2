@@ -29,6 +29,7 @@ class LoginViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.black, for: UIControlState.normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(handleLoginRegisterClick), for: UIControlEvents.touchUpInside)
         return button
     }()
     
@@ -119,6 +120,61 @@ class LoginViewController: UIViewController {
 
     }
     
+
+    func handleLoginRegisterClick() {
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            handleLogin()
+        } else {
+            handleRegister()
+        }
+    
+        
+    }
+
+    func handleRegister() {
+        print("Register")
+    }
+    
+    func handleLogin() {
+        
+        print("Login")
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        
+        // Prepare json http Body
+        let json = ["email" : "\(email.lowercased())", "password" : "\(password)"] as [String: Any]
+        
+        if let jsonData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.WritingOptions.prettyPrinted) {
+            
+            // Prepare
+            let loginAPIUrl = URL(string: "https://api.gyza.vn/api/signin")
+            
+            let request = NSMutableURLRequest(url: loginAPIUrl!)
+            request.httpMethod = "POST"
+            request.addValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+
+            URLSession.shared.dataTask(with: request as URLRequest) {
+                data, response, error in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                    
+                do {
+                    let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                    
+                    print(jsonResponse!)
+                    
+                } catch let error as NSError {
+                    print(error)
+                }
+            }.resume()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -198,7 +254,10 @@ class LoginViewController: UIViewController {
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 22).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        
+       
     }
+    
     
     func setupProfileImageView() {
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
