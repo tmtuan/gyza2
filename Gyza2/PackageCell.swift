@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PackageCell: UICollectionViewCell {
+class PackageCell: CustomCollectionViewCell {
     
     // MARK: Properties
     var package: Package? {
@@ -115,7 +115,7 @@ class PackageCell: UICollectionViewCell {
 
     }
     
-    func setupViews() {
+    override func setupViews() {
         
         addSubview(thumbnailImageView)
         addSubview(publisherProfileImageView)
