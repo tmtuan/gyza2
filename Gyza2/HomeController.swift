@@ -145,6 +145,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let loginController = LoginViewController()
         present(loginController, animated: true, completion: nil)
     }
+    
+    let menuBar: MenuBar = {
+        let mb = MenuBar()
+        return mb
+    }()
+    
+    private func setupMenuBar() {
+        view.addSubview(menuBar)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
+        view.addConstraintsWithFormat(format: "V:|[v0(50)]|", views: menuBar)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,11 +167,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
         collectionView?.backgroundColor = UIColor.white
+        navigationController?.navigationBar.isTranslucent = false
         
         let cellIdentifier = "cellId"
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        
+        setupMenuBar()
     }
 
+    
     
     // MARK: UICollectionView Methods
     
