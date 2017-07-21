@@ -172,6 +172,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let cellIdentifier = "cellId"
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier)
         
+        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        
         setupMenuBar()
     }
 
