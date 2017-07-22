@@ -31,6 +31,10 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         addSubview(collectionView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: collectionView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: collectionView)
+        let selectedIndexPath = NSIndexPath(item: 0, section: 0)
+        collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: false, scrollPosition: .bottom)
+    
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
