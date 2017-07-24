@@ -77,6 +77,9 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         let x = CGFloat(indexPath.item) * frame.width / 2
         horizontalBarLeftAnchorConstraint?.constant = x
         
+        UIView.animate(withDuration: 0.75) {
+            self.layoutIfNeeded()
+        }
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
