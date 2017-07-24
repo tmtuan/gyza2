@@ -151,7 +151,22 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return mb
     }()
     
+    let cellIdentifier = "cellId"
+    
+    private func setupCollectionView() {
+        collectionView?.backgroundColor = UIColor.white
+        navigationController?.navigationBar.isTranslucent = false
+        
+        collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier) 
+        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
+        
+
+    }
+    
     private func setupMenuBar() {
+        navigationController?.hidesBarsOnSwipe = true
+        
         view.addSubview(menuBar)
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
         view.addConstraintsWithFormat(format: "V:|[v0(50)]|", views: menuBar)
@@ -166,17 +181,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.title = "Gyza"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
-        collectionView?.backgroundColor = UIColor.white
-        navigationController?.navigationBar.isTranslucent = false
-        
-        let cellIdentifier = "cellId"
-        collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        
-        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
-        
+        setupCollectionView()
         setupMenuBar()
     }
 
+    
     
     
     // MARK: UICollectionView Methods
