@@ -10,6 +10,8 @@ import UIKit
 
 class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -74,6 +76,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        
         let x = CGFloat(indexPath.item) * frame.width / 2
         horizontalBarLeftAnchorConstraint?.constant = x
         
@@ -98,7 +101,7 @@ class MenuCell: CustomCollectionViewCell {
    
     override var isHighlighted: Bool {
         didSet {
-            
+        
             imageView.tintColor = isHighlighted ? UIColor.white: UIColor.init(red: 91/255, green: 14/255, blue: 13/255, alpha: 1)
         }
     }

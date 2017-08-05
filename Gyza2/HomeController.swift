@@ -154,6 +154,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     let cellIdentifier = "cellId"
     
     private func setupCollectionView() {
+        
         collectionView?.backgroundColor = UIColor.white
         navigationController?.navigationBar.isTranslucent = false
         
@@ -193,8 +194,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupMenuBar()
     }
 
-    
-    
     
     // MARK: UICollectionView Methods
     
