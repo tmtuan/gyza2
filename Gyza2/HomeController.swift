@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class HomeController: UICollectionViewController {
 
     // MARK: Properties
     var packages = [Package]()
@@ -209,11 +209,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return cell
     }
     
+}
+
+extension HomeController: UICollectionViewDelegateFlowLayout {
+   
     // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 500)
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let packagePhotoLauncher = PackagePhotoLauncher()
         
@@ -221,5 +225,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         packagePhotoLauncher.showPhoto(package: package)
         
     }
+    
 }
 
