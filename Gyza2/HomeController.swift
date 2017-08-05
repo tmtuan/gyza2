@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class HomeController: UICollectionViewController {
 
@@ -119,6 +120,13 @@ class HomeController: UICollectionViewController {
                         // photo
                         if let gallery = packageDictionary["gallery"] as? [String: Any] {
                             if let largePhoto = gallery["large"] as? [String: Any] {
+                                if let width = largePhoto["width"] as? Float {
+                                    pack.photoWidth = CGFloat(width)
+                                }
+                                
+                                if let height = largePhoto["height"] as? Float {
+                                    pack.photoHeight = CGFloat(height)
+                                }
                                 if let secureUrl = largePhoto["secure_url"] as? String {
                                     pack.photo = secureUrl
                                     
@@ -187,6 +195,12 @@ class HomeController: UICollectionViewController {
         
         fetchPackages()
         
+        if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
+            layout.delegate = self
+        } else {
+            print("Not yet conform PinterestLayout")
+        }
+        
         navigationItem.title = "Gyza"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
@@ -228,3 +242,14 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
     
 }
 
+extension HomeController: PinterestLayoutDelegate {
+    
+    func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
+        
+        let item = packages[indexPath.item] as Package
+        let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
+        let rect = AVMakeRect(aspectRatio: CGSize(width: view.frame.width, height: item.photoHeight), insideRect:boundingRect)
+        
+        return rect.size.height
+    }
+}

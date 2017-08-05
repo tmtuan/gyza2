@@ -21,7 +21,9 @@ class Package: NSObject {
     var photo: String?
     var slug: String?
     var styleTags = [String]()
-
+    var photoHeight: CGFloat = 0
+    var photoWidth: CGFloat = 0
+    
     var user: User?
 }
 

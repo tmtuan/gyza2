@@ -13,7 +13,8 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layout = UICollectionViewFlowLayout()
+        //let layout = UICollectionViewFlowLayout()
+        let layout = PinterestLayout()
         let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         navigationController.title = "Interior"
         navigationController.tabBarItem.image = UIImage(named: "home")
