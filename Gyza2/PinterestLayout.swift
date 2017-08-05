@@ -20,7 +20,7 @@ class PinterestLayout: UICollectionViewLayout {
     
     // 2
     let numberOfColumns = 2
-    var cellPadding: CGFloat = 6.0
+    var cellPadding: CGFloat = 4.0
     
     // 3
     var cache = [UICollectionViewLayoutAttributes]()
@@ -32,6 +32,22 @@ class PinterestLayout: UICollectionViewLayout {
         return (collectionView?.bounds.width)! - ((insets?.left)! + (insets?.right)!)
     }
     
+    // MARK: Init Methods
+    override init() {
+        super.init()
+    }
+    
+    init?(conformer: UICollectionViewController) {
+        super.init()
+        
+        delegate = conformer as! PinterestLayoutDelegate
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Layout Preparation Methods
     override func prepare() {
         
         // 1
@@ -51,22 +67,27 @@ class PinterestLayout: UICollectionViewLayout {
                 let indexPath = NSIndexPath(item: item, section: 0) as NSIndexPath
                 
                 // 4
-                let width = columnWidth - cellPadding * 2
-                let height = delegate.collectionView(collectionView: collectionView!, heightForItemAtIndexPath: indexPath, withWidth: width) + cellPadding * 2
-                let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height) as CGRect
-                let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+                if let del = delegate {
+                    let width = columnWidth - cellPadding * 2
+                    let height = del.collectionView(collectionView: collectionView!, heightForItemAtIndexPath: indexPath, withWidth: width) + cellPadding * 2
                 
-                // 5
-                let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath as IndexPath)
-                attributes.frame = insetFrame
-                cache.append(attributes)
+                    let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height) as CGRect
+                    let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
                 
-                // 6
-                contentHeight = max(contentHeight, frame.maxY)
-                yOffset[column] = yOffset[column] + height
+                    // 5
+                    let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath as IndexPath)
+                    attributes.frame = insetFrame
+                    cache.append(attributes)
                 
-                column = 1 - column
+                    // 6
+                    contentHeight = max(contentHeight, frame.maxY)
+                    yOffset[column] = yOffset[column] + height
                 
+                    column = 1 - column
+                
+                } else {
+                    print("Chưa có class conform PinterestLayout Protocol")
+                }
             }
             
         }
@@ -78,6 +99,7 @@ class PinterestLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        super.layoutAttributesForElements(in: rect)
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
         
         for attributes in cache {
@@ -86,7 +108,7 @@ class PinterestLayout: UICollectionViewLayout {
             }
         }
         
-        print("layout Attributes")
+        print("pinterest layout Attributes")
         return layoutAttributes
     }
 }

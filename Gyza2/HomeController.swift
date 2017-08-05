@@ -14,7 +14,13 @@ class HomeController: UICollectionViewController {
     // MARK: Properties
     var packages = [Package]()
     
+    // 1 - 2 column display style
+    var displayStyle: Int = 0
+    var displayStyleIcon = [ "oneColumn", "twoColumn"]
+    
     // MARK: Methods
+    
+    
     func fetchPackages() {
         let url = URL(string: "https://api.gyza.vn/api/packages")
         URLSession.shared.dataTask(with: url!) {
@@ -135,7 +141,7 @@ class HomeController: UICollectionViewController {
                         }
                         self.packages += [pack]
                     }
-                    DispatchQueue.main.sync {
+                    DispatchQueue.main.async {
                         self.collectionView?.reloadData()
                     }
                     
@@ -161,6 +167,9 @@ class HomeController: UICollectionViewController {
     
     let cellIdentifier = "cellId"
     
+    
+    // MARK: Setup Functions
+    
     private func setupCollectionView() {
         
         collectionView?.backgroundColor = UIColor.white
@@ -169,7 +178,6 @@ class HomeController: UICollectionViewController {
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier) 
         collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
-        
 
     }
     
@@ -188,24 +196,67 @@ class HomeController: UICollectionViewController {
         
         menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
     }
+    
+    private func setupNavBarButton() {
+        
+        let displayStyleImage = UIImage(named: displayStyleIcon[displayStyle])?.withRenderingMode(.alwaysOriginal)
+        let displayStyleBarButtonItem = UIBarButtonItem(image: displayStyleImage, style: .plain, target: self, action: #selector(handleDisplayStyle))
+        navigationItem.rightBarButtonItems = [displayStyleBarButtonItem]
+    }
+    
+    func handleDisplayStyle() {
+        
+        displayStyle = 1 - displayStyle
+        navigationItem.rightBarButtonItems?[0].image = UIImage(named: displayStyleIcon[displayStyle])?.withRenderingMode(.alwaysOriginal)
+        
+        self.collectionView?.reloadData()
+        self.collectionView?.collectionViewLayout.invalidateLayout()
+        
+        if (displayStyle == 0 ) {
+            let flowLayout = UICollectionViewFlowLayout()
+            collectionView?.collectionViewLayout = flowLayout
+           
+            
+        } else if (displayStyle == 1) {
+            let pinterestLayout = PinterestLayout(conformer: self)
+            collectionView?.collectionViewLayout = pinterestLayout!
+           
+        } else {
+            print("Có lỗi")
+        }
+        
+        
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        
         fetchPackages()
         
-        if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
-            layout.delegate = self
+        if let pinterestLayout = collectionView?.collectionViewLayout as? PinterestLayout {
+            pinterestLayout.delegate = self
         } else {
-            print("Not yet conform PinterestLayout")
+            print("Chưa conform PinterestLayout")
         }
+        
+        
+        if (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout) != nil {
+            print("Đã conform flow layout")
+        } else {
+            print("Chưa conform flow Layout")
+        }
+        
         
         navigationItem.title = "Gyza"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
         setupCollectionView()
         setupMenuBar()
+        setupNavBarButton()
+        
     }
 
     
@@ -220,6 +271,7 @@ class HomeController: UICollectionViewController {
      
         cell.package = packages[indexPath.item]
        
+        cell.backgroundColor = UIColor.gray
         return cell
     }
     
