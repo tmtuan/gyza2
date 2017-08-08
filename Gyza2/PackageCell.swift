@@ -11,6 +11,9 @@ import UIKit
 class PackageCell: CustomCollectionViewCell {
     
     // MARK: Properties
+    
+    var packageController: HomeController?
+    
     var package: Package? {
         didSet {
             
@@ -30,6 +33,7 @@ class PackageCell: CustomCollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        imageView.isUserInteractionEnabled = true
         
         return imageView
     }()
@@ -39,6 +43,10 @@ class PackageCell: CustomCollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 22
         imageView.layer.masksToBounds = true
+        
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor  = UIColor.init(red: 240/255, green: 240/255, blue: 240/255, alpha: 1).cgColor
+        imageView.clipsToBounds = true
         imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         return imageView
     }()
@@ -77,6 +85,9 @@ class PackageCell: CustomCollectionViewCell {
     let imageCache = NSCache<NSString, UIImage>()
     
     // MARK: Methods
+    func animate() {
+        packageController?.animateImageview(thumbnailImageView: thumbnailImageView)
+    }
     
     // Load image from url string
     func setupImage(imageView: UIImageView, url: String?) {
@@ -121,21 +132,21 @@ class PackageCell: CustomCollectionViewCell {
         addSubview(publisherProfileImageView)
         addSubview(nameLabel)
         addSubview(titleLabel)
-        addSubview(separatorView)
+        //addSubview(separatorView)
         
-        
+        thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PackageCell.animate as (PackageCell) -> () -> ())))
         
         // Horizontal Constraints
         
-        addConstraintsWithFormat(format: "H:|-16-[v0]-16-|", views: thumbnailImageView)
+        addConstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: thumbnailImageView)
         addConstraintsWithFormat(format: "H:|-16-[v0(44)]-8-[v1]-16-|", views: publisherProfileImageView, nameLabel)
         addConstraintsWithFormat(format: "H:|-16-[v0(44)]-8-[v1]-16-|", views: publisherProfileImageView, titleLabel)
         
         // Vertical Constraints
         
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, publisherProfileImageView, separatorView)
+        addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(44)]-8-|", views: thumbnailImageView, publisherProfileImageView)
         addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(20)]-8-[v2(20)]", views: thumbnailImageView, nameLabel, titleLabel)
-        addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
+        //addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
         
        
     }

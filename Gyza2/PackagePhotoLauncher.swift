@@ -46,9 +46,13 @@ class PackagePhotoLauncher: NSObject {
             photoPlayerView.photoImageView?.setupImage(url: package.photo)
             
             // Gestures on PhotoView
-            let swipeGesture = UISwipeGestureRecognizer(target: self.photoView, action: #selector(PackagePhotoLauncher.swipeGestureHandler))
-            swipeGesture.direction = UISwipeGestureRecognizerDirection.down
+//            let swipeGesture = UISwipeGestureRecognizer(target: self.photoView, action: #selector(PackagePhotoLauncher.swipeGestureHandler))
+//            swipeGesture.direction = UISwipeGestureRecognizerDirection.down
+            let swipeGesture = UITapGestureRecognizer(target: self.photoView, action: #selector(PackagePhotoLauncher.swipeGestureHandler))
+            swipeGesture.numberOfTapsRequired = 1
+
             photoView?.addGestureRecognizer(swipeGesture)
+            
 
             photoView?.addSubview(photoPlayerView)
             

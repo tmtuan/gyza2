@@ -8,6 +8,11 @@
 
 import UIKit
 
+class PinterestLayoutAttributes: UICollectionViewLayoutAttributes {
+
+    
+}
+
 protocol PinterestLayoutDelegate {
     
     func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat
@@ -76,6 +81,7 @@ class PinterestLayout: UICollectionViewLayout {
                 
                     // 5
                     let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath as IndexPath)
+                
                     attributes.frame = insetFrame
                     cache.append(attributes)
                 
@@ -111,4 +117,5 @@ class PinterestLayout: UICollectionViewLayout {
         print("pinterest layout Attributes")
         return layoutAttributes
     }
+    
 }

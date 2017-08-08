@@ -18,8 +18,87 @@ class HomeController: UICollectionViewController {
     var displayStyle: Int = 0
     var displayStyleIcon = [ "oneColumn", "twoColumn"]
     
-    // MARK: Methods
+    let zoomImageView = UIImageView()
+    let blackBackgroundView = UIView()
+    let navBarCoverView = UIView()
+    let tabBarCoverView = UIView()
     
+    var thumbnailImageView: UIImageView?
+    
+    // MARK: Methods
+    func animateImageview(thumbnailImageView: UIImageView) {
+        
+        self.thumbnailImageView = thumbnailImageView
+        
+        if let startingFrame = thumbnailImageView.superview?.convert(thumbnailImageView.frame, to: nil) {
+            
+            thumbnailImageView.alpha = 0
+            
+            blackBackgroundView.frame = self.view.frame
+            blackBackgroundView.backgroundColor = UIColor.black
+            blackBackgroundView.alpha = 0
+            view.addSubview(blackBackgroundView)
+            
+            navBarCoverView.frame = CGRect(x: 0, y: 0, width: 1000, height: 20 + 44)
+            navBarCoverView.backgroundColor = UIColor.black
+            navBarCoverView.alpha = 0
+            
+            if let keyWindow = UIApplication.shared.keyWindow {
+                keyWindow.addSubview(navBarCoverView)
+                
+                tabBarCoverView.frame = CGRect(x: 0, y: keyWindow.frame.height - 50, width: 1000, height: 54)
+                tabBarCoverView.backgroundColor = UIColor.black
+                tabBarCoverView.alpha = 0
+                keyWindow.addSubview(tabBarCoverView)
+            }
+            
+            zoomImageView .backgroundColor = UIColor.red
+            zoomImageView.frame = startingFrame
+            zoomImageView.isUserInteractionEnabled = true
+            zoomImageView.image = thumbnailImageView.image
+            zoomImageView.contentMode = .scaleAspectFill
+            zoomImageView.clipsToBounds = true
+            view.addSubview(zoomImageView)
+            
+            zoomImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(HomeController.zoomOut)))
+            
+            UIView.animate(withDuration: 0.75) {
+                
+                let height = (self.view.frame.width / startingFrame.width) * startingFrame.height
+                
+                let y = self.view.frame.height / 2 - height / 2
+                
+                self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
+                
+                self.blackBackgroundView.alpha = 1
+                
+                self.navBarCoverView.alpha = 1
+                
+                self.tabBarCoverView.alpha = 1
+            }
+
+        }
+    }
+    
+    func zoomOut() {
+         if let startingFrame = thumbnailImageView!.superview?.convert(thumbnailImageView!.frame, to: nil) {
+            
+            UIView.animate(withDuration: 0.75, animations: {() -> Void in
+                self.zoomImageView.frame = startingFrame
+                
+                self.blackBackgroundView.alpha = 0
+                self.navBarCoverView.alpha = 0
+                self.tabBarCoverView.alpha = 0
+                
+            }, completion: { (didComplete) -> Void in
+                self.zoomImageView.removeFromSuperview()
+                self.blackBackgroundView.removeFromSuperview()
+                self.thumbnailImageView?.alpha = 1
+                self.navBarCoverView.removeFromSuperview()
+                self.tabBarCoverView.removeFromSuperview()
+            })
+        }
+    }
     
     func fetchPackages() {
         let url = URL(string: "https://api.gyza.vn/api/packages")
@@ -172,12 +251,12 @@ class HomeController: UICollectionViewController {
     
     private func setupCollectionView() {
         
-        collectionView?.backgroundColor = UIColor.white
+        collectionView?.backgroundColor = UIColor.init(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         navigationController?.navigationBar.isTranslucent = false
         
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier) 
-        collectionView?.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
-        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(50, 0, 0, 0)
+        collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
 
     }
     
@@ -242,7 +321,6 @@ class HomeController: UICollectionViewController {
             print("Chưa conform PinterestLayout")
         }
         
-        
         if (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout) != nil {
             print("Đã conform flow layout")
         } else {
@@ -254,7 +332,7 @@ class HomeController: UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
         setupCollectionView()
-        setupMenuBar()
+        //setupMenuBar()
         setupNavBarButton()
         
     }
@@ -270,10 +348,15 @@ class HomeController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PackageCell
      
         cell.package = packages[indexPath.item]
-       
-        cell.backgroundColor = UIColor.gray
+        cell.packageController = self
+        
+        cell.backgroundColor = UIColor.white
+        cell.layer.cornerRadius = 10
+        cell.layer.masksToBounds = true
         return cell
     }
+    
+    
     
 }
 
@@ -285,10 +368,10 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let packagePhotoLauncher = PackagePhotoLauncher()
-        
-        let package = packages[indexPath.item]
-        packagePhotoLauncher.showPhoto(package: package)
+//        let packagePhotoLauncher = PackagePhotoLauncher()
+//        
+//        let package = packages[indexPath.item]
+//        packagePhotoLauncher.showPhoto(package: package)
         
     }
     
