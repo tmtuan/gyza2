@@ -16,7 +16,7 @@ class HomeController: UICollectionViewController {
     
     // 1 - 2 column display style
     var displayStyle: Int = 0
-    var displayStyleIcon = [ "oneColumn", "twoColumn"]
+    var displayStyleIcon = [ "twoColumn", "oneColumn"]
     
     let zoomImageView = UIImageView()
     let blackBackgroundView = UIView()
@@ -239,10 +239,7 @@ class HomeController: UICollectionViewController {
         present(loginController, animated: true, completion: nil)
     }
     
-    let menuBar: MenuBar = {
-        let mb = MenuBar()
-        return mb
-    }()
+    
     
     let cellIdentifier = "cellId"
     
@@ -258,22 +255,6 @@ class HomeController: UICollectionViewController {
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
 
-    }
-    
-    private func setupMenuBar() {
-        navigationController?.hidesBarsOnSwipe = true
-        
-        let redView = UIView()
-        redView.backgroundColor = UIColor.red
-        view.addSubview(redView)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: redView)
-        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: redView)
-        
-        view.addSubview(menuBar)
-        view.addConstraintsWithFormat(format: "H:|[v0]|", views: menuBar)
-        view.addConstraintsWithFormat(format: "V:[v0(50)]", views: menuBar)
-        
-        menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func setupNavBarButton() {
@@ -332,7 +313,6 @@ class HomeController: UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
         
         setupCollectionView()
-        //setupMenuBar()
         setupNavBarButton()
         
     }
