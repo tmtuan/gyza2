@@ -249,7 +249,7 @@ class HomeController: UICollectionViewController {
     private func setupCollectionView() {
         
         collectionView?.backgroundColor = UIColor.init(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
         
         collectionView?.register(PackageCell.self, forCellWithReuseIdentifier: cellIdentifier) 
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
@@ -284,8 +284,6 @@ class HomeController: UICollectionViewController {
         } else {
             print("Có lỗi")
         }
-        
-        
     }
     
 

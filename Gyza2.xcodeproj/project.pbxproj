@@ -17,10 +17,10 @@
 		DE2960121F105E7A00FABF18 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960111F105E7A00FABF18 /* Extension.swift */; };
 		DE2960161F109F7E00FABF18 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960151F109F7E00FABF18 /* Package.swift */; };
 		DE29601A1F11B06500FABF18 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960191F11B06500FABF18 /* User.swift */; };
-		DE7B45861F2231CD00145F74 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7B45851F2231CD00145F74 /* CustomCollectionViewCell.swift */; };
 		DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE915C021F15B068005495F4 /* CustomTabBarController.swift */; };
 		DEB288B91F3876400088092D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB288B71F3876400088092D /* Fabric.framework */; };
 		DEB288BA1F3876400088092D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB288B81F3876400088092D /* Crashlytics.framework */; };
+		DEB288BC1F395CA60088092D /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */; };
 		DED542491F359296006E4390 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED542481F359296006E4390 /* PinterestLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,10 +37,10 @@
 		DE2960111F105E7A00FABF18 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		DE2960151F109F7E00FABF18 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		DE2960191F11B06500FABF18 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		DE7B45851F2231CD00145F74 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE915C021F15B068005495F4 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		DEB288B71F3876400088092D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		DEB288B81F3876400088092D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		DED542481F359296006E4390 /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +95,7 @@
 		DE29600D1F10568500FABF18 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */,
 				DE29600E1F1056B000FABF18 /* PackageCell.swift */,
 			);
 			name = View;
@@ -105,7 +106,6 @@
 			children = (
 				DE2960111F105E7A00FABF18 /* Extension.swift */,
 				DE915C021F15B068005495F4 /* CustomTabBarController.swift */,
-				DE7B45851F2231CD00145F74 /* CustomCollectionViewCell.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -227,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DED542491F359296006E4390 /* PinterestLayout.swift in Sources */,
+				DEB288BC1F395CA60088092D /* CustomCollectionViewCell.swift in Sources */,
 				DE13D0441F1D1CE1001649C2 /* LoginViewController.swift in Sources */,
 				DE0547E11F0D453800531D40 /* HomeController.swift in Sources */,
 				DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */,
@@ -235,7 +236,6 @@
 				DE29600F1F1056B000FABF18 /* PackageCell.swift in Sources */,
 				DE0547DF1F0D453800531D40 /* AppDelegate.swift in Sources */,
 				DE2960121F105E7A00FABF18 /* Extension.swift in Sources */,
-				DE7B45861F2231CD00145F74 /* CustomCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

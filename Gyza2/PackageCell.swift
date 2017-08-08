@@ -139,8 +139,6 @@ class PackageCell: CustomCollectionViewCell {
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(44)]-8-|", views: thumbnailImageView, publisherProfileImageView)
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(20)]-8-[v2(20)]", views: thumbnailImageView, nameLabel, titleLabel)
         
-        
-       
     }
 
 }
