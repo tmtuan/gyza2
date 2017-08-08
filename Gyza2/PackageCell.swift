@@ -62,13 +62,6 @@ class PackageCell: CustomCollectionViewCell {
     }()
     
     
-    let separatorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.gray
-        return view
-    }()
-    
-    
     // MARK: Initializers
     
     override init(frame: CGRect) {
@@ -132,7 +125,6 @@ class PackageCell: CustomCollectionViewCell {
         addSubview(publisherProfileImageView)
         addSubview(nameLabel)
         addSubview(titleLabel)
-        //addSubview(separatorView)
         
         thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PackageCell.animate as (PackageCell) -> () -> ())))
         
@@ -145,13 +137,12 @@ class PackageCell: CustomCollectionViewCell {
         // Vertical Constraints
         
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(44)]-8-|", views: thumbnailImageView, publisherProfileImageView)
-        addConstraintsWithFormat(format: "V:|-16-[v0]-8-[v1(20)]-8-[v2(20)]", views: thumbnailImageView, nameLabel, titleLabel)
-        //addConstraintsWithFormat(format: "H:|[v0]|", views: separatorView)
+        addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(20)]-8-[v2(20)]", views: thumbnailImageView, nameLabel, titleLabel)
+        
         
        
     }
-    
-    
+
 }
 
 class CustomImageView: UIImageView {

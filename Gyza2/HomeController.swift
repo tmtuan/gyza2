@@ -293,7 +293,6 @@ class HomeController: UICollectionViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         fetchPackages()
         
         if let pinterestLayout = collectionView?.collectionViewLayout as? PinterestLayout {
@@ -335,9 +334,6 @@ class HomeController: UICollectionViewController {
         cell.layer.masksToBounds = true
         return cell
     }
-    
-    
-    
 }
 
 extension HomeController: UICollectionViewDelegateFlowLayout {
@@ -346,15 +342,6 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 500)
     }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let packagePhotoLauncher = PackagePhotoLauncher()
-//        
-//        let package = packages[indexPath.item]
-//        packagePhotoLauncher.showPhoto(package: package)
-        
-    }
-    
 }
 
 extension HomeController: PinterestLayoutDelegate {
