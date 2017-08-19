@@ -10,6 +10,9 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    // MARK: Properties
+    var userLoggedIn = UserLoggedIn()
+    
     let inputsContainerView: UIView = {
         let view = UIView()
         view.backgroundColor =  UIColor.white
@@ -98,7 +101,10 @@ class LoginViewController: UIViewController {
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
     
+    // MARK: Methods
+    
     func handleLoginRegisterChanged() {
+        
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
         
@@ -120,7 +126,6 @@ class LoginViewController: UIViewController {
 
     }
     
-
     func handleLoginRegisterClick() {
         if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
             handleLogin()
@@ -135,6 +140,11 @@ class LoginViewController: UIViewController {
         print("Register")
     }
     
+    /**
+     * Method name: <#handleLogin#>
+     * Description: handle Login function
+     * Parameters: <#parameters#>
+     */
     func handleLogin() {
         
         print("Login")
@@ -168,11 +178,50 @@ class LoginViewController: UIViewController {
                     
                     print(jsonResponse!)
                     
+                    if let rootDictionary = jsonResponse as? [String: Any] {
+                        if let isLoggedIn = rootDictionary["success"] as? NSNumber {
+                            self.userLoggedIn.success = isLoggedIn.intValue
+                            
+                            if let session = rootDictionary["session"] as? NSNumber {
+                                self.userLoggedIn.session = session.intValue
+                            }
+                            
+                            if let token = rootDictionary["token"] as? String {
+                                self.userLoggedIn.token = token
+                            }
+                            
+                            if let user = rootDictionary["user"] as? [String:Any] {
+                                if let isAdmin = user["isAdmin"] as? String {
+                                    self.userLoggedIn.user?.isAdmin = Int(isAdmin) == 1 ? true : false
+                                }
+                                if let isSupplier = user["isSupplier"] as? String {
+                                    self.userLoggedIn.user?.isSupplier = Int(isSupplier) == 1 ? true : false
+                                }
+                            }
+                            
+                        
+                        } else if let error = rootDictionary["error"] as? [String: Any] {
+                            if let error_en = error["en"] as? String {
+                                print(error_en)
+                            }
+                        }
+                    }
+                    
                 } catch let error as NSError {
                     print(error)
                 }
             }.resume()
         }
+    }
+    
+    func checkIfUserIsLoggedIn() {
+        if userLoggedIn.success == 1 {
+            print("User has logged in")
+        } else {
+            print("User has not loged in")
+        }
+        
+        
     }
     
     override func viewDidLoad() {
@@ -189,6 +238,8 @@ class LoginViewController: UIViewController {
         setupLoginRegisterButton()
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
+        
+        checkIfUserIsLoggedIn()
         
     }
 
@@ -257,7 +308,6 @@ class LoginViewController: UIViewController {
         
        
     }
-    
     
     func setupProfileImageView() {
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

@@ -13,4 +13,7 @@ class User: NSObject {
     var id: String?
     var avatar: String?
     var displayName: String?
+    var isAdmin: Bool?
+    var isSupplier: Bool?
+    var email: String?
 }

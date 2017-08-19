@@ -18,6 +18,7 @@
 		DE2960161F109F7E00FABF18 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960151F109F7E00FABF18 /* Package.swift */; };
 		DE29601A1F11B06500FABF18 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960191F11B06500FABF18 /* User.swift */; };
 		DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE915C021F15B068005495F4 /* CustomTabBarController.swift */; };
+		DEA728A41F48152100BD155F /* UserLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA728A31F48152100BD155F /* UserLoggedIn.swift */; };
 		DEB288B91F3876400088092D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB288B71F3876400088092D /* Fabric.framework */; };
 		DEB288BA1F3876400088092D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB288B81F3876400088092D /* Crashlytics.framework */; };
 		DEB288BC1F395CA60088092D /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */; };
@@ -38,6 +39,7 @@
 		DE2960151F109F7E00FABF18 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		DE2960191F11B06500FABF18 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE915C021F15B068005495F4 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		DEA728A31F48152100BD155F /* UserLoggedIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoggedIn.swift; sourceTree = "<group>"; };
 		DEB288B71F3876400088092D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		DEB288B81F3876400088092D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				DE2960151F109F7E00FABF18 /* Package.swift */,
 				DE2960191F11B06500FABF18 /* User.swift */,
+				DEA728A31F48152100BD155F /* UserLoggedIn.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				DE13D0441F1D1CE1001649C2 /* LoginViewController.swift in Sources */,
 				DE0547E11F0D453800531D40 /* HomeController.swift in Sources */,
 				DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */,
+				DEA728A41F48152100BD155F /* UserLoggedIn.swift in Sources */,
 				DE2960161F109F7E00FABF18 /* Package.swift in Sources */,
 				DE29601A1F11B06500FABF18 /* User.swift in Sources */,
 				DE29600F1F1056B000FABF18 /* PackageCell.swift in Sources */,
