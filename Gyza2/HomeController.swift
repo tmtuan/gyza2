@@ -376,7 +376,7 @@ extension HomeController: PinterestLayoutDelegate {
         let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
         let rect = AVMakeRect(aspectRatio: CGSize(width: view.frame.width, height: item.photoHeight), insideRect:boundingRect)
         
-        return rect.size.height > 500  ? 500 : rect.size.height
+        return rect.size.height > 450  ? 450 : rect.size.height
     }
 }
 

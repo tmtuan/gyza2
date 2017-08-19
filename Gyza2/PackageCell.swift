@@ -16,9 +16,7 @@ class PackageCell: CustomCollectionViewCell {
     
     var package: Package? {
         didSet {
-            
-            //setupImage(imageView: thumbnailImageView, url: package?.photo)
-            //setupImage(imageView: publisherProfileImageView, url: package?.user?.avatar)
+        
             thumbnailImageView.setupImage(url: package?.photo, imageCache: imageCache)
             publisherProfileImageView.setupImage(url: package?.user?.avatar, imageCache: imageCache)
             nameLabel.text = package?.name
