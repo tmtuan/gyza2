@@ -18,6 +18,8 @@ class HomeController: UICollectionViewController {
     var displayStyle: Int = 0
     var displayStyleIcon = [ "twoColumn", "oneColumn"]
     
+    var scrollView: UIScrollView!
+    
     let zoomImageView = UIImageView()
     let blackBackgroundView = UIView()
     let navBarCoverView = UIView()
@@ -45,20 +47,37 @@ class HomeController: UICollectionViewController {
             
             if let keyWindow = UIApplication.shared.keyWindow {
                 keyWindow.addSubview(navBarCoverView)
-                
                 tabBarCoverView.frame = CGRect(x: 0, y: keyWindow.frame.height - 50, width: 1000, height: 54)
                 tabBarCoverView.backgroundColor = UIColor.black
                 tabBarCoverView.alpha = 0
                 keyWindow.addSubview(tabBarCoverView)
             }
+        
+            scrollView = UIScrollView(frame: view.frame)
+            scrollView?.backgroundColor = UIColor.black
+            scrollView.alpha = 0
+            scrollView?.contentSize = zoomImageView.bounds.size
+            scrollView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
             
-            zoomImageView .backgroundColor = UIColor.red
+            zoomImageView .backgroundColor = UIColor.black
             zoomImageView.frame = startingFrame
             zoomImageView.isUserInteractionEnabled = true
             zoomImageView.image = thumbnailImageView.image
-            zoomImageView.contentMode = .scaleAspectFill
-            zoomImageView.clipsToBounds = true
-            view.addSubview(zoomImageView)
+            zoomImageView.contentMode = .scaleAspectFit
+            //zoomImageView.clipsToBounds = true
+            //zoomImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            scrollView?.addSubview(zoomImageView)
+            
+            view.addSubview(scrollView!)
+            view.bringSubview(toFront: scrollView!)
+            
+            scrollView?.delegate = self
+            
+            setZoomScale()
+            
+            //view.addSubview(zoomImageView)
             
             zoomImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(HomeController.zoomOut)))
             
@@ -67,17 +86,25 @@ class HomeController: UICollectionViewController {
                 let height = (self.view.frame.width / startingFrame.width) * startingFrame.height
                 
                 let y = self.view.frame.height / 2 - height / 2
-                
                 self.zoomImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: height)
-                
                 self.blackBackgroundView.alpha = 1
-                
                 self.navBarCoverView.alpha = 1
-                
                 self.tabBarCoverView.alpha = 1
+                self.scrollView.alpha = 1
             }
-
         }
+    }
+    
+    func setZoomScale() {
+        let imageViewSize = zoomImageView.bounds.size
+        let scrollViewSize = scrollView?.bounds.size
+        let widthScale = (scrollViewSize?.width)! / imageViewSize.width
+        let heightScale = (scrollViewSize?.height)! / imageViewSize.height
+        
+        scrollView.minimumZoomScale = min(widthScale, heightScale)
+        scrollView.maximumZoomScale = 6.0
+        scrollView.contentSize = (zoomImageView.image?.size)!
+        scrollView.zoomScale = 1.0
     }
     
     func zoomOut() {
@@ -89,6 +116,7 @@ class HomeController: UICollectionViewController {
                 self.blackBackgroundView.alpha = 0
                 self.navBarCoverView.alpha = 0
                 self.tabBarCoverView.alpha = 0
+                self.scrollView.alpha = 0
                 
             }, completion: { (didComplete) -> Void in
                 self.zoomImageView.removeFromSuperview()
@@ -239,8 +267,6 @@ class HomeController: UICollectionViewController {
         present(loginController, animated: true, completion: nil)
     }
     
-    
-    
     let cellIdentifier = "cellId"
     
     
@@ -345,11 +371,30 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
 extension HomeController: PinterestLayoutDelegate {
     
     func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
-        
+    
         let item = packages[indexPath.item] as Package
         let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
         let rect = AVMakeRect(aspectRatio: CGSize(width: view.frame.width, height: item.photoHeight), insideRect:boundingRect)
         
-        return rect.size.height
+        return rect.size.height > 500  ? 500 : rect.size.height
     }
+}
+
+extension HomeController {
+    
+    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        let imageViewSize = zoomImageView.frame.size
+        let scrollViewSize = scrollView.bounds.size
+        
+        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 10 : 0
+        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 10 : 0
+        
+        scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
+    }
+    
+    override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.zoomImageView
+    }
+    
+    
 }

@@ -25,7 +25,7 @@ class PinterestLayout: UICollectionViewLayout {
     
     // 2
     let numberOfColumns = 2
-    var cellPadding: CGFloat = 4.0
+    var cellPadding: CGFloat = 8.0
     
     // 3
     var cache = [UICollectionViewLayoutAttributes]()
