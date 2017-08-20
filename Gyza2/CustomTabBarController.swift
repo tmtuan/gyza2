@@ -10,7 +10,6 @@ import UIKit
 
 class CustomTabBarController: UITabBarController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,12 +32,20 @@ class CustomTabBarController: UITabBarController {
         thirdNavigationController.title = "Favorites"
         thirdNavigationController.tabBarItem.image = UIImage(named: "star")
         
-        let accountController = LoginViewController()
+        let accountController = AccountViewController()
         accountController.navigationItem.title = "Account"
         let fourthNavigationController = UINavigationController(rootViewController: accountController)
         fourthNavigationController.setNavigationBarHidden(true, animated: true)
         fourthNavigationController.title = "Account"
         fourthNavigationController.tabBarItem.image = UIImage(named: "user_profile")
+
+        
+//        let accountController = LoginViewController()
+//        accountController.navigationItem.title = "Account"
+//        let fourthNavigationController = UINavigationController(rootViewController: accountController)
+//        fourthNavigationController.setNavigationBarHidden(true, animated: true)
+//        fourthNavigationController.title = "Account"
+//        fourthNavigationController.tabBarItem.image = UIImage(named: "user_profile")
 
         viewControllers = [navigationController, secondNavigationController, thirdNavigationController, fourthNavigationController]
 

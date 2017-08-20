@@ -198,8 +198,11 @@ class LoginViewController: UIViewController {
                                     self.userLoggedIn.user?.isSupplier = Int(isSupplier) == 1 ? true : false
                                 }
                             }
+
+                            DispatchQueue.main.sync {
+                                self.finishLoggingIn()
+                            }
                             
-                        
                         } else if let error = rootDictionary["error"] as? [String: Any] {
                             if let error_en = error["en"] as? String {
                                 print(error_en)
@@ -214,14 +217,21 @@ class LoginViewController: UIViewController {
         }
     }
     
+    func finishLoggingIn() {
+        
+        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        UserDefaults.standard.synchronize()
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
     func checkIfUserIsLoggedIn() {
         if userLoggedIn.success == 1 {
             print("User has logged in")
+    
         } else {
             print("User has not loged in")
         }
-        
-        
     }
     
     override func viewDidLoad() {
@@ -297,7 +307,6 @@ class LoginViewController: UIViewController {
         passwordSeparatorView.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor).isActive = true
         passwordSeparatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-
     }
     
     func setupLoginRegisterButton() {
@@ -305,8 +314,6 @@ class LoginViewController: UIViewController {
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 22).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        
-       
     }
     
     func setupProfileImageView() {
@@ -314,7 +321,6 @@ class LoginViewController: UIViewController {
         profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -24).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        
     }
     
     func setupLoginRegisterSegmentedControl() {
