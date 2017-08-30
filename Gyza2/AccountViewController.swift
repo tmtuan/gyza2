@@ -10,14 +10,14 @@ import UIKit
 
 class AccountViewController: UIViewController {
     
+    var userLoggedIn: UserLoggedIn?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         view.backgroundColor = UIColor.blue
         
-        let x = isLoggedIn()
-        
-        if !x {
+        if !isLoggedIn() {
             
             let loginViewController = LoginViewController()
             present(loginViewController, animated: true, completion: nil)
@@ -28,6 +28,10 @@ class AccountViewController: UIViewController {
         
         return UserDefaults.standard.bool(forKey: "isLoggedIn")
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(userLoggedIn?.displayName ?? "Not logged in")
     }
 }
  

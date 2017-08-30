@@ -197,6 +197,9 @@ class LoginViewController: UIViewController {
                                 if let isSupplier = user["isSupplier"] as? String {
                                     self.userLoggedIn.user?.isSupplier = Int(isSupplier) == 1 ? true : false
                                 }
+                                if let displayName = user["displayName"] as? String {
+                                    self.userLoggedIn.displayName = displayName
+                                }
                             }
 
                             DispatchQueue.main.sync {
@@ -221,6 +224,17 @@ class LoginViewController: UIViewController {
         
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
         UserDefaults.standard.synchronize()
+        
+        if let topController = UIApplication.shared.keyWindow?.rootViewController {
+            if let navigationController = topController.childViewControllers[3] as? UINavigationController {
+                
+                if let accountViewController = navigationController.childViewControllers[0] as? AccountViewController {
+                    accountViewController.userLoggedIn = self.userLoggedIn
+                }
+            }
+            
+        }
+        
         dismiss(animated: true, completion: nil)
         
     }

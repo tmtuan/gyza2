@@ -13,5 +13,6 @@ class UserLoggedIn: NSObject {
     var session: Int?
     var success: Int?
     var token: String?
+    var displayName: String?
     var user: User?
 }
