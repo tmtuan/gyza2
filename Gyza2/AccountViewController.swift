@@ -35,7 +35,18 @@ class AccountViewController: UIViewController {
         return imageView
     }()
     
+    let logoutButton: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.backgroundColor = UIColor.white
+        button.setTitle("Logout", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.black, for: UIControlState.normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16.0)
+        button.addTarget(self, action: #selector(handleLogout), for: UIControlEvents.touchUpInside)
+        return button
+    }()
     
+    // MARK: Methods
     func setupProfileBackgroundView() {
         profileBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         profileBackgroundView.heightAnchor.constraint(equalToConstant: 300).isActive = true
@@ -50,15 +61,60 @@ class AccountViewController: UIViewController {
         
     }
     
+    func setupLogoutButton() {
+        logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        logoutButton.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
+        logoutButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+    }
+    
+    func handleLogout() {
+        print("Logout 123")
+        
+        //Prepare
+        let logoutAPIUrl = URL(string: "https://api.gyza.vn/api/signout")
+        let request = NSMutableURLRequest(url: logoutAPIUrl!)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request as URLRequest) {
+            data, response, error in
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            do {
+                let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                print(jsonResponse!)
+                
+                DispatchQueue.main.sync {
+                    self.finishLoggingOut()
+                }
+            } catch let error as NSError {
+                print(error)
+            }
+        }.resume()
+        
+    }
+    
+    func finishLoggingOut() {
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        UserDefaults.standard.synchronize()
+        
+        checkLogin()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         view.addSubview(profileBackgroundView)
         view.addSubview(profileImageView)
+        view.addSubview(logoutButton)
         
         setupProfileBackgroundView()
         setupProfileImageView()
-
+        setupLogoutButton()
+        
         checkLogin()
     }
     
