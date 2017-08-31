@@ -207,10 +207,7 @@ class HomeController: UICollectionViewController {
                                             if let avatar_url = user_avatar["secure_url"] as? String {
                                                 pack.user?.avatar = avatar_url
                                             }
-                                            
                                         }
-                                        
-                                        
                                     }
                                 }
                                 

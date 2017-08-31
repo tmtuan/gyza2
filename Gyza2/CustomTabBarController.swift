@@ -33,9 +33,10 @@ class CustomTabBarController: UITabBarController {
         thirdNavigationController.tabBarItem.image = UIImage(named: "star")
         
         let accountController = AccountViewController()
+        accountController.view.backgroundColor = UIColor.white
         accountController.navigationItem.title = "Account"
         let fourthNavigationController = UINavigationController(rootViewController: accountController)
-        fourthNavigationController.setNavigationBarHidden(true, animated: true)
+        //fourthNavigationController.setNavigationBarHidden(true, animated: true)
         fourthNavigationController.title = "Account"
         fourthNavigationController.tabBarItem.image = UIImage(named: "user_profile")
 
