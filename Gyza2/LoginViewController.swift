@@ -36,6 +36,17 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    let skipButton: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.backgroundColor = UIColor.white
+        button.setTitle("Skip", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.black, for: UIControlState.normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(handleSkipButtonClick), for: UIControlEvents.touchUpInside)
+        return button
+    }()
+    
     let nameTextField: UITextField = {
         let textfield = UITextField()
         textfield.placeholder = "Name"
@@ -102,6 +113,20 @@ class LoginViewController: UIViewController {
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
     
     // MARK: Methods
+    
+    func handleSkipButtonClick() {
+    
+        if let topController = UIApplication.shared.keyWindow?.rootViewController {
+            if let navigationController = topController.childViewControllers[3] as? UINavigationController {
+                
+                if let accountViewController = navigationController.childViewControllers[0] as? AccountViewController {
+                    accountViewController.isSkippedLogin = true
+                }
+            }
+        }
+        dismiss(animated: true, completion: nil)
+        
+    }
     
     func handleLoginRegisterChanged() {
         
@@ -257,11 +282,13 @@ class LoginViewController: UIViewController {
         view.addSubview(loginRegisterButton)
         view.addSubview(profileImageView)
         view.addSubview(loginRegisterSegmentedControl)
+        view.addSubview(skipButton)
         
         setupInputsContainerView()
         setupLoginRegisterButton()
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
+        setupSkipButton()
         
         checkIfUserIsLoggedIn()
         
@@ -328,6 +355,13 @@ class LoginViewController: UIViewController {
         loginRegisterButton.topAnchor.constraint(equalTo: inputsContainerView.bottomAnchor, constant: 22).isActive = true
         loginRegisterButton.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+    }
+    
+    func setupSkipButton() {
+        skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        skipButton.topAnchor.constraint(equalTo: loginRegisterButton.bottomAnchor, constant: 22).isActive = true
+        skipButton.widthAnchor.constraint(equalTo: loginRegisterButton.widthAnchor).isActive = true
+        skipButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
     }
     
     func setupProfileImageView() {

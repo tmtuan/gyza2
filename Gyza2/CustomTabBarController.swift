@@ -18,10 +18,11 @@ class CustomTabBarController: UITabBarController {
         navigationController.title = "Interior"
         navigationController.tabBarItem.image = UIImage(named: "home")
         
-        let collectionController = UIViewController()
-        collectionController.view.backgroundColor = UIColor.yellow
-        collectionController.navigationItem.title = "Collection"
-        let secondNavigationController = UINavigationController(rootViewController: collectionController)
+        //let collectionController = ProductViewController()
+        let productLayout = UICollectionViewFlowLayout()
+        //collectionController.view.backgroundColor = UIColor.yellow
+        //collectionController.navigationItem.title = "Collection"
+        let secondNavigationController = UINavigationController(rootViewController: ProductViewController(collectionViewLayout: productLayout))
         secondNavigationController.title = "Collection"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         

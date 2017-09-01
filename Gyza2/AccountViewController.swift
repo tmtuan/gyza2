@@ -13,6 +13,8 @@ class AccountViewController: UIViewController {
     // MARK: Properties
     var userLoggedIn: UserLoggedIn?
     
+    var isSkippedLogin = false
+    
     let profileBackgroundView: UIView = {
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.gray
@@ -47,6 +49,7 @@ class AccountViewController: UIViewController {
     }()
     
     // MARK: Methods
+    
     func setupProfileBackgroundView() {
         profileBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         profileBackgroundView.heightAnchor.constraint(equalToConstant: 300).isActive = true
@@ -75,6 +78,7 @@ class AccountViewController: UIViewController {
         let logoutAPIUrl = URL(string: "https://api.gyza.vn/api/signout")
         let request = NSMutableURLRequest(url: logoutAPIUrl!)
         request.httpMethod = "GET"
+        request.addValue((userLoggedIn?.token)!, forHTTPHeaderField: "token")
         
         URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
@@ -104,6 +108,13 @@ class AccountViewController: UIViewController {
         checkLogin()
     }
     
+    func isLoggedIn() -> Bool {
+        
+        return UserDefaults.standard.bool(forKey: "isLoggedIn")
+        
+    }
+    
+    // MARK: Override Func
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -118,26 +129,32 @@ class AccountViewController: UIViewController {
         checkLogin()
     }
     
-    func isLoggedIn() -> Bool {
-        
-        return UserDefaults.standard.bool(forKey: "isLoggedIn")
-
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-       
+        
         checkLogin()
         print(userLoggedIn?.displayName ?? "Not logged in")
     }
     
     func checkLogin() {
         
+        if isSkippedLogin {
+            isSkippedLogin = false
+            self.tabBarController?.selectedIndex = 0
+        
+            return
+        }
+        
         if !isLoggedIn() {
             
             let loginViewController = LoginViewController()
+            dismiss(animated: true, completion: nil)
             present(loginViewController, animated: true, completion: nil)
         }
-
+        
     }
-}
+
+    
+   
+    
+   }
  
