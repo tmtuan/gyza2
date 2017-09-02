@@ -25,6 +25,7 @@
 		DEB288BA1F3876400088092D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB288B81F3876400088092D /* Crashlytics.framework */; };
 		DEB288BC1F395CA60088092D /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */; };
 		DECA67551F5A3974006F2A3B /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA67541F5A3974006F2A3B /* ProductCell.swift */; };
+		DECA67571F5A3CE1006F2A3B /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA67561F5A3CE1006F2A3B /* CustomImageView.swift */; };
 		DED542491F359296006E4390 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED542481F359296006E4390 /* PinterestLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		DEB288B81F3876400088092D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		DEB288BB1F395CA60088092D /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		DECA67541F5A3974006F2A3B /* ProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		DECA67561F5A3CE1006F2A3B /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		DED542481F359296006E4390 /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 			children = (
 				DE2960111F105E7A00FABF18 /* Extension.swift */,
 				DE915C021F15B068005495F4 /* CustomTabBarController.swift */,
+				DECA67561F5A3CE1006F2A3B /* CustomImageView.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				DED542491F359296006E4390 /* PinterestLayout.swift in Sources */,
 				DEA728A61F483E7C00BD155F /* AccountViewController.swift in Sources */,
 				DEB288BC1F395CA60088092D /* CustomCollectionViewCell.swift in Sources */,
+				DECA67571F5A3CE1006F2A3B /* CustomImageView.swift in Sources */,
 				DE13D0441F1D1CE1001649C2 /* LoginViewController.swift in Sources */,
 				DECA67551F5A3974006F2A3B /* ProductCell.swift in Sources */,
 				DE0547E11F0D453800531D40 /* HomeController.swift in Sources */,
