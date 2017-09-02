@@ -11,14 +11,75 @@ import UIKit
 class ProductViewController: UICollectionViewController {
     
     // MARK: Propertes
+    var products = [Product]()
+    
     let cellIdentifier = "cellId"
     
+    
+    // MARK: Load func
     override func viewDidLoad() {
         
         navigationItem.title = "Product"
         
-        
         setupCollectionView()
+        
+        fetchProducts()
+    }
+    
+    func fetchProducts() {
+        
+        let url = URL(string: "https://api.gyza.vn/api/products")
+        URLSession.shared.dataTask(with: url!) {
+            (data, response, error) in
+            
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                
+                if let rootDictionary = json as? [String: Any] {
+                    for productDictionary in rootDictionary["results"] as! [[String: Any]] {
+                        let product = Product()
+                        
+                        // name 
+                        if let name = productDictionary["name"] as? [String: Any] {
+                            if let en_name = name["en"] as? String {
+                                product.name = en_name
+                            }
+                        }
+                        
+                        // photo 
+                        if let gallery = productDictionary["gallery"] as? [String: Any] {
+                            if let largePhoto = gallery["large"] as? [String: Any] {
+                                if let width = largePhoto["width"] as? Float {
+                                    product.photoWidth = CGFloat(width)
+                                }
+                                if let height = largePhoto["height"] as? Float {
+                                    product.photoHeight = CGFloat(height)
+                                }
+                                if let secureURL = largePhoto["secure_url"] as? String {
+                                    product.photo = secureURL
+                                }
+                            }
+                        }
+                        self.products += [product]
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
+            } catch let error {
+                print(error)
+            }
+            
+            
+        }.resume()
+        
+        
     }
     
     // MARK: setup
@@ -34,9 +95,10 @@ class ProductViewController: UICollectionViewController {
         
     }
 
+    
     // MARK: collectionView delegates
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return products.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
