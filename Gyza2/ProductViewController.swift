@@ -28,7 +28,7 @@ class ProductViewController: UICollectionViewController {
         collectionView?.backgroundColor = UIColor.init(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         navigationController?.navigationBar.isTranslucent = true
     
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView?.register(ProductCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView?.contentInset = UIEdgeInsetsMake(0, 0, 0, 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
@@ -40,9 +40,9 @@ class ProductViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ProductCell
         
-        cell.backgroundColor = UIColor.red
+        
         return cell
         
     }
