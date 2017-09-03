@@ -368,9 +368,12 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
         self.searchBar.resignFirstResponder()
         
     }
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print(searchBar.text)
     }
     
     
