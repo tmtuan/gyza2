@@ -18,22 +18,17 @@ class CustomTabBarController: UITabBarController {
         navigationController.title = "Interior"
         navigationController.tabBarItem.image = UIImage(named: "home")
         
-        //let collectionController = ProductViewController()
         let productLayout = UICollectionViewFlowLayout()
-        //collectionController.view.backgroundColor = UIColor.yellow
-        //collectionController.navigationItem.title = "Collection"
         productLayout.minimumInteritemSpacing = 1
         productLayout.minimumLineSpacing = 2
         let secondNavigationController = UINavigationController(rootViewController: ProductViewController(collectionViewLayout: productLayout))
         secondNavigationController.title = "Collection"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         
-        let starController = UIViewController()
-        starController.view.backgroundColor = UIColor.red
-        starController.navigationItem.title = "Favorites"
-        let thirdNavigationController = UINavigationController(rootViewController: starController)
-        thirdNavigationController.title = "Favorites"
-        thirdNavigationController.tabBarItem.image = UIImage(named: "star")
+        let searchLayout = UICollectionViewFlowLayout()
+        let thirdNavigationController = UINavigationController(rootViewController: SearchController(collectionViewLayout: searchLayout))
+        thirdNavigationController.title = "Search"
+        thirdNavigationController.tabBarItem.image = UIImage(named: "search")
         
         let accountController = AccountViewController()
         accountController.view.backgroundColor = UIColor.white
