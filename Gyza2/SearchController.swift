@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class SearchController: UICollectionViewController {
+class SearchController: UICollectionViewController, UISearchBarDelegate {
     // MARK: Properties
     var packages = [Package]()
     
@@ -287,6 +287,7 @@ class SearchController: UICollectionViewController {
     }
     
     func setupSearchBar() {
+        searchBar.delegate = self
         let leftNavBarButton = UIBarButtonItem(customView: self.searchBar)
         navigationItem.leftBarButtonItem = leftNavBarButton
     }
@@ -354,6 +355,26 @@ class SearchController: UICollectionViewController {
         cell.layer.masksToBounds = true
         return cell
     }
+    
+    // MARK: UISearchBarDelegate
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+        self.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = false
+        self.searchBar.endEditing(true)
+        self.searchBar.resignFirstResponder()
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    
+
 }
 
 extension SearchController: UICollectionViewDelegateFlowLayout {
@@ -391,7 +412,7 @@ extension SearchController {
     override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.zoomImageView
     }
-    
-    
 }
+
+
 
