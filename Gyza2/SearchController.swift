@@ -26,6 +26,12 @@ class SearchController: UICollectionViewController {
     
     var thumbnailImageView: UIImageView?
     
+    var searchBar: UISearchBar = {
+        var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 300, height: 20))
+        searchBar.placeholder = "Search photos on Gyza...."
+        return searchBar
+    }()
+    
     // MARK: Methods
     func animateImageview(thumbnailImageView: UIImageView) {
         
@@ -257,12 +263,6 @@ class SearchController: UICollectionViewController {
         
     }
     
-    func handleLogin() {
-        
-        let loginController = LoginViewController()
-        present(loginController, animated: true, completion: nil)
-    }
-    
     let cellIdentifier = "cellId"
     
     
@@ -284,6 +284,11 @@ class SearchController: UICollectionViewController {
         let displayStyleImage = UIImage(named: displayStyleIcon[displayStyle])?.withRenderingMode(.alwaysOriginal)
         let displayStyleBarButtonItem = UIBarButtonItem(image: displayStyleImage, style: .plain, target: self, action: #selector(handleDisplayStyle))
         navigationItem.rightBarButtonItems = [displayStyleBarButtonItem]
+    }
+    
+    func setupSearchBar() {
+        let leftNavBarButton = UIBarButtonItem(customView: self.searchBar)
+        navigationItem.leftBarButtonItem = leftNavBarButton
     }
     
     func handleDisplayStyle() {
@@ -327,13 +332,9 @@ class SearchController: UICollectionViewController {
             print("Chưa conform flow Layout")
         }
         
-        
-        navigationItem.title = "Gyza"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Login", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleLogin))
-        
         setupCollectionView()
         setupNavBarButton()
-        
+        setupSearchBar()
     }
     
     
