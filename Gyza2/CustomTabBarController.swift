@@ -23,7 +23,7 @@ class CustomTabBarController: UITabBarController {
         //collectionController.view.backgroundColor = UIColor.yellow
         //collectionController.navigationItem.title = "Collection"
         productLayout.minimumInteritemSpacing = 1
-        productLayout.minimumLineSpacing = 1
+        productLayout.minimumLineSpacing = 2
         let secondNavigationController = UINavigationController(rootViewController: ProductViewController(collectionViewLayout: productLayout))
         secondNavigationController.title = "Collection"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")

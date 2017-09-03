@@ -216,6 +216,8 @@ class LoginViewController: UIViewController {
                             }
                             
                             if let user = rootDictionary["user"] as? [String:Any] {
+                                self.userLoggedIn.user = User()
+                                
                                 if let isAdmin = user["isAdmin"] as? String {
                                     self.userLoggedIn.user?.isAdmin = Int(isAdmin) == 1 ? true : false
                                 }
@@ -225,6 +227,12 @@ class LoginViewController: UIViewController {
                                 if let displayName = user["displayName"] as? String {
                                     self.userLoggedIn.displayName = displayName
                                 }
+                                if let avatar = user["avatar"] as? [String: Any] {
+                                    if let secure_url = avatar["secure_url"] as? String {
+                                        self.userLoggedIn.user?.avatar = secure_url
+                                    }
+                                }
+                                
                             }
 
                             DispatchQueue.main.sync {

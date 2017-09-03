@@ -22,9 +22,8 @@ class AccountViewController: UIViewController {
         return backgroundView
     }()
     
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "sampleProfile")
+    let profileImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 75
         imageView.layer.masksToBounds = true
@@ -51,6 +50,7 @@ class AccountViewController: UIViewController {
     // MARK: Methods
     
     func setupProfileBackgroundView() {
+        profileImageView.setupImage(url: userLoggedIn?.user?.avatar)
         profileBackgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         profileBackgroundView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         profileBackgroundView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -133,6 +133,8 @@ class AccountViewController: UIViewController {
         
         checkLogin()
         print(userLoggedIn?.displayName ?? "Not logged in")
+        profileImageView.setupImage(url: userLoggedIn?.user?.avatar)
+
     }
     
     func checkLogin() {

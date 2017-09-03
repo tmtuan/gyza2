@@ -12,6 +12,11 @@ class ProductCell: CustomCollectionViewCell {
     
     // MARK: Properties
     
+    var product: Product? {
+        didSet {
+            thumbnailImageView.setupImage(url: product?.photo)
+        }
+    }
     let thumbnailImageView: CustomImageView = {
         let imageView = CustomImageView()
         imageView.image = UIImage(named: "samplePhoto")
@@ -22,6 +27,9 @@ class ProductCell: CustomCollectionViewCell {
         return imageView
     }()
  
+    // Cache images for better display
+    //let imageCache = NSCache<NSString, UIImage>()
+    
     // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
