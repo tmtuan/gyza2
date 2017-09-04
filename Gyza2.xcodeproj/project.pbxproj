@@ -392,7 +392,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Gyza2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = c;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tmtuan.com.Gyza2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -411,7 +411,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Gyza2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = c;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tmtuan.com.Gyza2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
