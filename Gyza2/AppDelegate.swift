@@ -23,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = CustomTabBarController()
+        //window?.rootViewController = CustomTabBarController()
+        
+        window?.rootViewController = IntroViewController()
         
         //UINavigationBar.appearance().barTintColor = UIColor.black
         

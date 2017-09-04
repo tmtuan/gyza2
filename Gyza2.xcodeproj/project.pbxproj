@@ -18,6 +18,7 @@
 		DE2960161F109F7E00FABF18 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960151F109F7E00FABF18 /* Package.swift */; };
 		DE29601A1F11B06500FABF18 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2960191F11B06500FABF18 /* User.swift */; };
 		DE49F81D1F5BF0A2008D4FB5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE49F81C1F5BF0A2008D4FB5 /* SearchController.swift */; };
+		DE49F8221F5D6C47008D4FB5 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE49F8211F5D6C47008D4FB5 /* IntroViewController.swift */; };
 		DE611B501F58DFD200F00F39 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE611B4F1F58DFD200F00F39 /* ProductViewController.swift */; };
 		DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE915C021F15B068005495F4 /* CustomTabBarController.swift */; };
 		DEA728A41F48152100BD155F /* UserLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA728A31F48152100BD155F /* UserLoggedIn.swift */; };
@@ -45,6 +46,7 @@
 		DE2960151F109F7E00FABF18 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		DE2960191F11B06500FABF18 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DE49F81C1F5BF0A2008D4FB5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		DE49F8211F5D6C47008D4FB5 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		DE611B4F1F58DFD200F00F39 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		DE915C021F15B068005495F4 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		DEA728A31F48152100BD155F /* UserLoggedIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoggedIn.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				DEA728A51F483E7C00BD155F /* AccountViewController.swift */,
 				DE611B4F1F58DFD200F00F39 /* ProductViewController.swift */,
 				DE49F81C1F5BF0A2008D4FB5 /* SearchController.swift */,
+				DE49F8211F5D6C47008D4FB5 /* IntroViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				DECA67551F5A3974006F2A3B /* ProductCell.swift in Sources */,
 				DE0547E11F0D453800531D40 /* HomeController.swift in Sources */,
 				DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */,
+				DE49F8221F5D6C47008D4FB5 /* IntroViewController.swift in Sources */,
 				DECA67591F5A7318006F2A3B /* Product.swift in Sources */,
 				DE49F81D1F5BF0A2008D4FB5 /* SearchController.swift in Sources */,
 				DEA728A41F48152100BD155F /* UserLoggedIn.swift in Sources */,
