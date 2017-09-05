@@ -16,7 +16,7 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.red
+        cv.backgroundColor = UIColor.white
         cv.dataSource = self
         cv.delegate = self
         cv.isPagingEnabled = true
@@ -24,6 +24,15 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     }()
     
     let cellId = "cellId"
+    
+    let pages: [Page] = {
+        let firstPage = Page(title: "Lifestyle", message: "Choose your interior design", imageName: "IntroPage01")
+        let secondPage = Page(title: "Share", message: "Share your design interests", imageName: "IntroPage02")
+        let thirdPage = Page(title: "Order", message: "Get furniture from credible manufacturers", imageName: "IntroPage03")
+        let fourthPage = Page(title: "Enjoy", message: "Enjoy your home", imageName: "IntroPage04")
+        return [firstPage, secondPage, thirdPage, fourthPage ]
+    }()
+    
     // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +43,15 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         collectionView.register(IntroPageCell.self, forCellWithReuseIdentifier: cellId)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return pages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! IntroPageCell
         
+        let page = pages[indexPath.item]
+        
+        cell.page = page
         
         return cell
     }

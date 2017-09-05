@@ -11,6 +11,30 @@ import UIKit
 class IntroPageCell: UICollectionViewCell {
 
     // MARK: Properties
+    var page: Page? {
+        didSet {
+            
+            guard let page = page else {
+                return
+            }
+            imageView.image = UIImage(named: page.imageName)
+            
+            let attributedText = NSMutableAttributedString(string: page.title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightMedium), NSForegroundColorAttributeName: UIColor.black])
+            
+            attributedText.append(NSAttributedString(string: "\n\n\(page.message)", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName: UIColor.gray]))
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            
+            let length = attributedText.string.characters.count
+            attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: length))
+            textView.attributedText = attributedText
+            
+            
+            
+        }
+    }
+    
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -24,6 +48,7 @@ class IntroPageCell: UICollectionViewCell {
         let textView = UITextView()
         textView.text = "Gyza"
         textView.isEditable = false
+        textView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -57,6 +82,7 @@ class IntroPageCell: UICollectionViewCell {
         textView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3).isActive = true
     }
+    
     
     
 }
