@@ -31,7 +31,7 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         collectionView.frame = view.frame
         view.addSubview(collectionView)
 
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(IntroPageCell.self, forCellWithReuseIdentifier: cellId)
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
@@ -40,7 +40,7 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         
-        cell.backgroundColor = UIColor.white
+        
         return cell
     }
     
