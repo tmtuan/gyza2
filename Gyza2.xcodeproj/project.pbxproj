@@ -32,6 +32,7 @@
 		DECA67571F5A3CE1006F2A3B /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA67561F5A3CE1006F2A3B /* CustomImageView.swift */; };
 		DECA67591F5A7318006F2A3B /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = DECA67581F5A7318006F2A3B /* Product.swift */; };
 		DED542491F359296006E4390 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED542481F359296006E4390 /* PinterestLayout.swift */; };
+		DED5FFD91F5EEBE200690F85 /* LoginCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5FFD81F5EEBE200690F85 /* LoginCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		DECA67561F5A3CE1006F2A3B /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		DECA67581F5A7318006F2A3B /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		DED542481F359296006E4390 /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		DED5FFD81F5EEBE200690F85 /* LoginCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				DE29600E1F1056B000FABF18 /* PackageCell.swift */,
 				DECA67541F5A3974006F2A3B /* ProductCell.swift */,
 				DE49F8231F5E1FE1008D4FB5 /* IntroPageCell.swift */,
+				DED5FFD81F5EEBE200690F85 /* LoginCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				DE13D0441F1D1CE1001649C2 /* LoginViewController.swift in Sources */,
 				DECA67551F5A3974006F2A3B /* ProductCell.swift in Sources */,
 				DE0547E11F0D453800531D40 /* HomeController.swift in Sources */,
+				DED5FFD91F5EEBE200690F85 /* LoginCell.swift in Sources */,
 				DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */,
 				DE49F8221F5D6C47008D4FB5 /* IntroViewController.swift in Sources */,
 				DE49F8241F5E1FE1008D4FB5 /* IntroPageCell.swift in Sources */,
