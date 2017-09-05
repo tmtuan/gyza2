@@ -24,6 +24,7 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     }()
     
     let cellId = "cellId"
+    let loginCellId = "loginCellId"
     
     let pages: [Page] = {
         let firstPage = Page(title: "Lifestyle", message: "Choose your interior design", imageName: "IntroPage01")
@@ -40,13 +41,24 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         collectionView.frame = view.frame
         view.addSubview(collectionView)
 
-        collectionView.register(IntroPageCell.self, forCellWithReuseIdentifier: cellId)
+        registerCells()
     }
+    
+    fileprivate func registerCells() {
+        collectionView.register(IntroPageCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: loginCellId)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pages.count
+        return pages.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+       
+        if indexPath.item == pages.count {
+            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
+            return loginCell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! IntroPageCell
         
         let page = pages[indexPath.item]

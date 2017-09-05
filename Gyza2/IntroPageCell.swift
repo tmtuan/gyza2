@@ -19,9 +19,9 @@ class IntroPageCell: UICollectionViewCell {
             }
             imageView.image = UIImage(named: page.imageName)
             
-            let attributedText = NSMutableAttributedString(string: page.title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 20, weight: UIFontWeightMedium), NSForegroundColorAttributeName: UIColor.black])
+            let attributedText = NSMutableAttributedString(string: page.title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightMedium), NSForegroundColorAttributeName: UIColor.white])
             
-            attributedText.append(NSAttributedString(string: "\n\n\(page.message)", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 14), NSForegroundColorAttributeName: UIColor.gray]))
+            attributedText.append(NSAttributedString(string: "\n\n\(page.message)", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.white]))
 
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
@@ -29,9 +29,6 @@ class IntroPageCell: UICollectionViewCell {
             let length = attributedText.string.characters.count
             attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: length))
             textView.attributedText = attributedText
-            
-            
-            
         }
     }
     
@@ -47,6 +44,7 @@ class IntroPageCell: UICollectionViewCell {
     let textView: UITextView = {
         let textView = UITextView()
         textView.text = "Gyza"
+        textView.backgroundColor = UIColor.black
         textView.isEditable = false
         textView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         textView.translatesAutoresizingMaskIntoConstraints = false
