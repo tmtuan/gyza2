@@ -20,6 +20,14 @@ class IntroPageCell: UICollectionViewCell {
         return imageView
     }()
     
+    let textView: UITextView = {
+        let textView = UITextView()
+        textView.text = "Gyza"
+        textView.isEditable = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+    
     // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,10 +43,19 @@ class IntroPageCell: UICollectionViewCell {
     func setupViews() {
         backgroundColor = UIColor.yellow 
         addSubview(imageView)
+        addSubview(textView)
+       
+        // ImageView Anchors
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: textView.topAnchor).isActive = true
         imageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    
+        // TextView Anchors
+        textView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        textView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        textView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        textView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3).isActive = true
     }
     
     
