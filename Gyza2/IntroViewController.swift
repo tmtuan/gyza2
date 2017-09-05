@@ -46,7 +46,7 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     fileprivate func registerCells() {
         collectionView.register(IntroPageCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: loginCellId)
+        collectionView.register(LoginCell.self, forCellWithReuseIdentifier: loginCellId)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
