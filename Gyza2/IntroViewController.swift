@@ -37,11 +37,33 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        observeKeyboardNotification()
         view.backgroundColor = UIColor.yellow
         collectionView.frame = view.frame
         view.addSubview(collectionView)
 
         registerCells()
+    }
+    
+    fileprivate func observeKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    
+    }
+    
+    func keyboardShow() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.frame = CGRect(x: 0, y: -50, width:self.view.frame.width, height:self.view.frame.height)
+        }, completion: nil)
+        print("keyboard shown")
+    }
+    
+    func keyboardHide() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width:self.view.frame.width, height:self.view.frame.height)
+        }, completion: nil)
+        print("keyboard hide")
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
