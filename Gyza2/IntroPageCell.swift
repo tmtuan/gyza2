@@ -19,9 +19,9 @@ class IntroPageCell: UICollectionViewCell {
             }
             imageView.image = UIImage(named: page.imageName)
             
-            let attributedText = NSMutableAttributedString(string: page.title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightMedium), NSForegroundColorAttributeName: UIColor.white])
+            let attributedText = NSMutableAttributedString(string: page.title, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 24, weight: UIFontWeightMedium), NSForegroundColorAttributeName: UIColor.darkGray])
             
-            attributedText.append(NSAttributedString(string: "\n\n\(page.message)", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.white]))
+            attributedText.append(NSAttributedString(string: "\n\(page.message)", attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: 18), NSForegroundColorAttributeName: UIColor.black]))
 
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
@@ -44,7 +44,7 @@ class IntroPageCell: UICollectionViewCell {
     let textView: UITextView = {
         let textView = UITextView()
         textView.text = "Gyza"
-        textView.backgroundColor = UIColor.black
+        textView.backgroundColor = UIColor.white
         textView.isEditable = false
         textView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ class IntroPageCell: UICollectionViewCell {
         textView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         textView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        textView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3).isActive = true
+        textView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.2).isActive = true
     }
     
     

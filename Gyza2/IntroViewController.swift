@@ -36,12 +36,14 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
-        pc.pageIndicatorTintColor = UIColor.white
-        pc.numberOfPages = self.pages.count + 1
-        pc.currentPageIndicatorTintColor = UIColor.yellow
+        pc.pageIndicatorTintColor = UIColor.lightGray
+        pc.numberOfPages = self.pages.count
+        pc.currentPageIndicatorTintColor = UIColor.black
         pc.translatesAutoresizingMaskIntoConstraints = false
         return pc
     }()
+    
+    var pageControlBottomAnchor: NSLayoutConstraint?
     
     // MARK: Methods
     override func viewDidLoad() {
@@ -57,7 +59,8 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         // PageControl's constraints
         pageControl.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         pageControl.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32).isActive = true
+        pageControlBottomAnchor = pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        pageControlBottomAnchor?.isActive = true
         pageControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         registerCells()
@@ -118,4 +121,18 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
+        pageControl.currentPage = pageNumber
+        
+        // on the last page
+        if pageNumber == pages.count {
+            pageControlBottomAnchor?.constant = 30
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            pageControlBottomAnchor?.constant = 0
+        }
+    }
 }
