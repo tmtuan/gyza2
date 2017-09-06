@@ -13,6 +13,12 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isLoggedIn() {
+            // assum user is logged in
+        } else {
+            perform(#selector(showIntroViewController), with: nil, afterDelay: 0.01)
+        }
+        
         let layout = UICollectionViewFlowLayout()
         let navigationController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         navigationController.title = "Interior"
@@ -50,5 +56,15 @@ class CustomTabBarController: UITabBarController {
 
         // make the tab menu translucent or not - up to you
         // tabBar.isTranslucent = false
+    }
+    
+    func isLoggedIn() -> Bool {
+        return false
+    }
+    func showIntroViewController() {
+        let introViewController = IntroViewController()
+        present(introViewController, animated: true, completion: {
+            // Do something here
+        })
     }
 }
