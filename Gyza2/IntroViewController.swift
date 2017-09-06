@@ -34,10 +34,10 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         return [firstPage, secondPage, thirdPage, fourthPage ]
     }()
     
-    let pageControl: UIPageControl = {
+    lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.pageIndicatorTintColor = UIColor.white
-        pc.numberOfPages = 4
+        pc.numberOfPages = self.pages.count + 1
         pc.currentPageIndicatorTintColor = UIColor.yellow
         pc.translatesAutoresizingMaskIntoConstraints = false
         return pc
