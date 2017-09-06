@@ -49,7 +49,7 @@ class LoginCell: UICollectionViewCell {
         return button
     }()
     
-    let skipLoginButton: UIButton = {
+    lazy var skipLoginButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor.black
         button.setTitle("Skip log in", for: .normal)
@@ -59,10 +59,12 @@ class LoginCell: UICollectionViewCell {
         return button
     }()
     
+    var introViewController: IntroViewController?
     // MARK: Events Handlers
     func handleSkipButtonClick() {
-        print("123")
+        introViewController?.skipLogin()
     }
+    
     // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)

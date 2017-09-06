@@ -52,6 +52,9 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     }
     
+    func skipLogin() {
+        dismiss(animated: true, completion: nil)
+    }
     func keyboardShow() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.frame = CGRect(x: 0, y: -50, width:self.view.frame.width, height:self.view.frame.height)
@@ -81,7 +84,8 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
         if indexPath.item == pages.count {
-            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath)
+            let loginCell = collectionView.dequeueReusableCell(withReuseIdentifier: loginCellId, for: indexPath) as! LoginCell
+            loginCell.introViewController = self
             return loginCell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! IntroPageCell
