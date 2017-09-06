@@ -54,9 +54,16 @@ class LoginCell: UICollectionViewCell {
         button.backgroundColor = UIColor.black
         button.setTitle("Skip log in", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
+        button.addTarget(self, action: #selector(handleSkipButtonClick), for: UIControlEvents.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    // MARK: Events Handlers
+    func handleSkipButtonClick() {
+        print("123")
+    }
+    // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         

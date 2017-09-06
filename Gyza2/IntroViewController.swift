@@ -44,6 +44,9 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         registerCells()
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
     fileprivate func registerCells() {
         collectionView.register(IntroPageCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(LoginCell.self, forCellWithReuseIdentifier: loginCellId)
