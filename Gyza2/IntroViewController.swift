@@ -34,6 +34,15 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         return [firstPage, secondPage, thirdPage, fourthPage ]
     }()
     
+    let pageControl: UIPageControl = {
+        let pc = UIPageControl()
+        pc.pageIndicatorTintColor = UIColor.white
+        pc.numberOfPages = 4
+        pc.currentPageIndicatorTintColor = UIColor.yellow
+        pc.translatesAutoresizingMaskIntoConstraints = false
+        return pc
+    }()
+    
     // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +50,16 @@ class IntroViewController: UIViewController, UICollectionViewDataSource, UIColle
         observeKeyboardNotification()
         view.backgroundColor = UIColor.yellow
         collectionView.frame = view.frame
+        
         view.addSubview(collectionView)
-
+        view.addSubview(pageControl)
+        
+        // PageControl's constraints
+        pageControl.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        pageControl.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32).isActive = true
+        pageControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         registerCells()
     }
     
