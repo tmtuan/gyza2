@@ -31,7 +31,7 @@ class CustomTabBarController: UITabBarController {
         secondNavigationController.title = "Product"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         
-        let searchLayout = UICollectionViewFlowLayout()
+        let searchLayout = PinterestLayout()
         let thirdNavigationController = UINavigationController(rootViewController: SearchController(collectionViewLayout: searchLayout))
         thirdNavigationController.title = "Search"
         thirdNavigationController.tabBarItem.image = UIImage(named: "search")
