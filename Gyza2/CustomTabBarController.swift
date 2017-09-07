@@ -28,7 +28,7 @@ class CustomTabBarController: UITabBarController {
         productLayout.minimumInteritemSpacing = 1
         productLayout.minimumLineSpacing = 2
         let secondNavigationController = UINavigationController(rootViewController: ProductViewController(collectionViewLayout: productLayout))
-        secondNavigationController.title = "Collection"
+        secondNavigationController.title = "Product"
         secondNavigationController.tabBarItem.image = UIImage(named: "collection")
         
         let searchLayout = UICollectionViewFlowLayout()
