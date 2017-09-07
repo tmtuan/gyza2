@@ -184,27 +184,34 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
     }
     
     
+    // MARK: View Appearing
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+//        if let pinterestLayout = PinterestLayout(conformer: self) {
+//            collectionView?.collectionViewLayout = pinterestLayout
+//        }
+        
         if let pinterestLayout = collectionView?.collectionViewLayout as? PinterestLayout {
             pinterestLayout.delegate = self
+            print("conform PinterestLayout Search ")
         } else {
             print("Chưa conform PinterestLayout")
         }
         
-        if (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout) != nil {
-            print("Đã conform flow layout")
-        } else {
-            print("Chưa conform flow Layout")
-        }
-        
         setupCollectionView()
-        setupNavBarButton()
+        //setupNavBarButton()
         setupSearchBar()
+        
+        fetchSearchResults(keyword: "")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.collectionView?.reloadData()
+        }
+    }
     
     // MARK: UICollectionView Methods
     
@@ -216,7 +223,6 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! PackageCell
         
         cell.package = packages[indexPath.item]
-        
         cell.backgroundColor = UIColor.white
         cell.layer.cornerRadius = 10
         cell.layer.masksToBounds = true
@@ -386,8 +392,9 @@ extension SearchController: PinterestLayoutDelegate {
     func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath, withWidth width: CGFloat) -> CGFloat {
         
         let item = packages[indexPath.item] as Package
+        //item.photoHeight =
         let boundingRect = CGRect(x: 0, y: 0, width: width, height: CGFloat(MAXFLOAT))
-        let rect = AVMakeRect(aspectRatio: CGSize(width: view.frame.width, height: item.photoHeight), insideRect:boundingRect)
+        let rect = AVMakeRect(aspectRatio: CGSize(width: view.frame.width, height: item.photoHeight == 0 ? 500 : item.photoHeight), insideRect:boundingRect)
         
         return rect.size.height > 450  ? 450 : rect.size.height
     }

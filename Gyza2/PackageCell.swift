@@ -21,6 +21,11 @@ class PackageCell: CustomCollectionViewCell {
             publisherProfileImageView.setupImage(url: package?.user?.avatar, imageCache: imageCache)
             nameLabel.text = package?.name
             titleLabel.text = package?.designer
+            if let height = (thumbnailImageView.image?.size.height) {
+                if (package?.photoHeight == 0.0 ) {
+                    package?.photoHeight = height
+                }
+            }
             
         }
     }
