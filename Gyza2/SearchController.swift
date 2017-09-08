@@ -27,7 +27,7 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
     var thumbnailImageView: UIImageView?
     
     var searchBar: UISearchBar = {
-        var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 300, height: 16))
+        var searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 1000 , height: 14))
         searchBar.placeholder = "Search photos on Gyza...."
         return searchBar
     }()
@@ -193,6 +193,7 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
 //            collectionView?.collectionViewLayout = pinterestLayout
 //        }
         
+        UINavigationBar.appearance().backgroundColor = UIColor.black
         if let pinterestLayout = collectionView?.collectionViewLayout as? PinterestLayout {
             pinterestLayout.delegate = self
             print("conform PinterestLayout Search ")
@@ -205,12 +206,6 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
         setupSearchBar()
         
         fetchSearchResults(keyword: "")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.collectionView?.reloadData()
-        }
     }
     
     // MARK: UICollectionView Methods
@@ -269,6 +264,7 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
                 print(json)
                 
                 if let rootDictionary = json as? [Any] {
+                    if rootDictionary.count > 0 {
                     for result in rootDictionary {
                         if let resultDictionary = result as? [String: Any] {
                             let pack = Package()
@@ -370,12 +366,15 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
                     DispatchQueue.main.async {
                         self.collectionView?.reloadData()
                     }
+                    }
                 }
             } catch let jsonError {
                 print(jsonError)
             }
         }.resume()
     }
+    
+    
 
 }
 

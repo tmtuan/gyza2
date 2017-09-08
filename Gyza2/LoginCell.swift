@@ -42,18 +42,22 @@ class LoginCell: UICollectionViewCell {
     
     let loginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.black
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
         button.setTitle("Log in", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     lazy var skipLoginButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor.black
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
         button.setTitle("Skip log in", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
         button.addTarget(self, action: #selector(handleSkipButtonClick), for: UIControlEvents.touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

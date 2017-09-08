@@ -28,6 +28,8 @@ class LoginViewController: UIViewController {
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
         button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.black, for: UIControlState.normal)
@@ -39,6 +41,8 @@ class LoginViewController: UIViewController {
     let skipButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
         button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
         button.setTitle("Skip", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor.black, for: UIControlState.normal)
@@ -284,7 +288,11 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.gray
+        observeKeyboardNotification()
+        
+        let image = UIImage(named: "loginBackgroundImage")
+        image?.draw(in: self.view.bounds)
+        view.backgroundColor = UIColor(patternImage: image!)
         
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
@@ -302,6 +310,25 @@ class LoginViewController: UIViewController {
         
     }
 
+    fileprivate func observeKeyboardNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    func keyboardShow() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.frame = CGRect(x: 0, y: -70, width:self.view.frame.width, height:self.view.frame.height)
+        }, completion: nil)
+        print("keyboard shown")
+    }
+    
+    func keyboardHide() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.view.frame = CGRect(x: 0, y: 0, width:self.view.frame.width, height:self.view.frame.height)
+        }, completion: nil)
+        print("keyboard hide")
+    }
     
     func setupInputsContainerView() {
         // Add constraints for inputsContainerView

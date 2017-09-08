@@ -17,7 +17,7 @@ class AccountViewController: UIViewController {
     
     let profileBackgroundView: UIView = {
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.gray
+        backgroundView.backgroundColor = UIColor(patternImage: UIImage(named: "accountBackground")!)
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         return backgroundView
     }()
@@ -118,6 +118,8 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = UIColor.clear
         view.addSubview(profileBackgroundView)
         view.addSubview(profileImageView)
         view.addSubview(logoutButton)
@@ -155,8 +157,5 @@ class AccountViewController: UIViewController {
         
     }
 
-    
-   
-    
    }
  
