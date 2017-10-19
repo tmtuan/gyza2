@@ -105,7 +105,7 @@ class LoginViewController: UIViewController {
         let sc = UISegmentedControl(items: ["Login", "Register"])
         sc.tintColor = UIColor.white
         sc.translatesAutoresizingMaskIntoConstraints = false
-        sc.selectedSegmentIndex = 1
+        sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleLoginRegisterChanged), for: .valueChanged)
         return sc
     }()
@@ -161,8 +161,6 @@ class LoginViewController: UIViewController {
         } else {
             handleRegister()
         }
-    
-        
     }
 
     func handleRegister() {
@@ -222,6 +220,9 @@ class LoginViewController: UIViewController {
                             if let user = rootDictionary["user"] as? [String:Any] {
                                 self.userLoggedIn.user = User()
                                 
+                                if let id = user["id"] as? String {
+                                    self.userLoggedIn.user?.id = id
+                                }
                                 if let isAdmin = user["isAdmin"] as? String {
                                     self.userLoggedIn.user?.isAdmin = Int(isAdmin) == 1 ? true : false
                                 }
@@ -260,6 +261,9 @@ class LoginViewController: UIViewController {
     func finishLoggingIn() {
         
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
+        UserDefaults.standard.set(userLoggedIn.user?.id, forKey: "userId")
+        UserDefaults.standard.set(userLoggedIn.token, forKey: "token")
+        
         UserDefaults.standard.synchronize()
         
         if let topController = UIApplication.shared.keyWindow?.rootViewController {
@@ -288,6 +292,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        UserDefaults.standard.set("", forKey: "userId")
+        UserDefaults.standard.set("", forKey: "token")
+        
         observeKeyboardNotification()
         
         let image = UIImage(named: "loginBackgroundImage")
@@ -305,6 +313,8 @@ class LoginViewController: UIViewController {
         setupProfileImageView()
         setupLoginRegisterSegmentedControl()
         setupSkipButton()
+        
+        handleLoginRegisterChanged()
         
         checkIfUserIsLoggedIn()
         

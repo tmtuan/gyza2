@@ -26,7 +26,6 @@ class PackageCell: CustomCollectionViewCell {
                     package?.photoHeight = height
                 }
             }
-            
         }
     }
     
@@ -56,11 +55,17 @@ class PackageCell: CustomCollectionViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.numberOfLines = 2
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let titleLabel: UILabel = {
         let title = UILabel()
+        title.font = UIFont.systemFont(ofSize: 14)
+        title.numberOfLines = 2
+        title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
     
@@ -134,12 +139,12 @@ class PackageCell: CustomCollectionViewCell {
         // Horizontal Constraints
         
         addConstraintsWithFormat(format: "H:|-0-[v0]-0-|", views: thumbnailImageView)
-        addConstraintsWithFormat(format: "H:|-16-[v0(44)]-8-[v1]-16-|", views: publisherProfileImageView, nameLabel)
-        addConstraintsWithFormat(format: "H:|-16-[v0(44)]-8-[v1]-16-|", views: publisherProfileImageView, titleLabel)
+        addConstraintsWithFormat(format: "H:|-16-[v0(36)]-8-[v1]-16-|", views: publisherProfileImageView, nameLabel)
+        addConstraintsWithFormat(format: "H:|-16-[v0(36)]-8-[v1]-16-|", views: publisherProfileImageView, titleLabel)
         
         // Vertical Constraints
         
-        addConstraintsWithFormat(format: "V:|-0-[v0]-8-[v1(44)]-8-|", views: thumbnailImageView, publisherProfileImageView)
+        addConstraintsWithFormat(format: "V:|-0-[v0]-8-[v1(36)]-8-|", views: thumbnailImageView, publisherProfileImageView)
         addConstraintsWithFormat(format: "V:|-8-[v0]-8-[v1(20)]-8-[v2(20)]", views: thumbnailImageView, nameLabel, titleLabel)
         
     }

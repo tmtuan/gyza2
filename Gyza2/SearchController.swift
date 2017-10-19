@@ -243,7 +243,7 @@ class SearchController: UICollectionViewController, UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.searchBar.showsCancelButton = false
         
-        let keyword = searchBar.text as! String
+        let keyword = searchBar.text!
         fetchSearchResults(keyword: keyword)
     }
     

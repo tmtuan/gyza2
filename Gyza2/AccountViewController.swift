@@ -78,7 +78,7 @@ class AccountViewController: UIViewController {
         let logoutAPIUrl = URL(string: "https://api.gyza.vn/api/signout")
         let request = NSMutableURLRequest(url: logoutAPIUrl!)
         request.httpMethod = "GET"
-        request.addValue((userLoggedIn?.token)!, forHTTPHeaderField: "token")
+        request.addValue(UserDefaults.standard.string(forKey: "token")!, forHTTPHeaderField: "token")
         
         URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
@@ -91,6 +91,14 @@ class AccountViewController: UIViewController {
                 let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
                 print(jsonResponse!)
                 
+                // Check if token is still valid or not
+                if let rootDictionary = jsonResponse as? [String: Any] {
+                    if let code = rootDictionary["code"] as? Int {
+                        if code == 30 {
+                            print("Token is invalid")
+                        }
+                    }
+                }
                 DispatchQueue.main.sync {
                     self.finishLoggingOut()
                 }
@@ -110,6 +118,7 @@ class AccountViewController: UIViewController {
     
     func isLoggedIn() -> Bool {
         
+        
         return UserDefaults.standard.bool(forKey: "isLoggedIn")
         
     }
@@ -118,8 +127,8 @@ class AccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor.clear
+        self.navigationController?.navigationBar.isTranslucent = true
+        
         view.addSubview(profileBackgroundView)
         view.addSubview(profileImageView)
         view.addSubview(logoutButton)
@@ -139,12 +148,15 @@ class AccountViewController: UIViewController {
 
     }
     
+    func finishRefreshingToken() {
+        UserDefaults.standard.set(userLoggedIn?.token, forKey: "token")
+    }
+    
     func checkLogin() {
         
         if isSkippedLogin {
             isSkippedLogin = false
             self.tabBarController?.selectedIndex = 0
-        
             return
         }
         
@@ -154,8 +166,114 @@ class AccountViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             present(loginViewController, animated: true, completion: nil)
         }
-        
+        // If logged in
+        else {
+            let userId: String! = UserDefaults.standard.string(forKey: "userId")
+            if( userId != "" ) {
+                // Check if token is still valid
+                // Prepare Request
+                let requestURL = "https://api.gyza/vn/users/\(userId!)"
+                let getUserByIdAPIUrl = URL(string: requestURL)
+                let request = NSMutableURLRequest(url: getUserByIdAPIUrl!)
+                request.httpMethod = "GET"
+            
+                // Send Request
+                URLSession.shared.dataTask(with: request as URLRequest) {
+                    data, response, error in
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    do {
+                        let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                        print(jsonResponse!)
+                        
+                        // Check if token is still valid or not
+                        if let rootDictionary = jsonResponse as? [String: Any] {
+                            if let code = rootDictionary["code"] as? Int {
+                                if code == 30 {
+                                    // refresh token
+                                    let refreshTokenAPIUrl = URL(string: "https://api.gyza.vn/refreshtoken")
+                                    let request = NSMutableURLRequest(url: refreshTokenAPIUrl!)
+                                    request.httpMethod = "GET"
+                                    request.addValue(UserDefaults.standard.string(forKey: "token")!, forHTTPHeaderField: "token")
+                                    
+                                    // get user info
+                                    URLSession.shared.dataTask(with: request as URLRequest) {
+                                        data, response, error in
+                                        if error != nil {
+                                            print(error!)
+                                            return
+                                        }
+                                        
+                                        do {
+                                            let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                                            
+                                            print(jsonResponse!)
+                                            
+                                            if let rootDictionary = jsonResponse as? [String: Any] {
+                                                self.userLoggedIn = UserLoggedIn()
+                                                if let isLoggedIn = rootDictionary["success"] as? NSNumber {
+                                                    self.userLoggedIn?.success = isLoggedIn.intValue
+                                                    
+                                                    if let session = rootDictionary["session"] as? NSNumber {
+                                                        self.userLoggedIn?.session = session.intValue
+                                                    }
+                                                    
+                                                    if let token = rootDictionary["token"] as? String {
+                                                        self.userLoggedIn?.token = token
+                                                    }
+                                                    
+                                                    if let user = rootDictionary["user"] as? [String:Any] {
+                                                        self.userLoggedIn?.user = User()
+                                                        
+                                                        if let id = user["id"] as? String {
+                                                            self.userLoggedIn?.user?.id = id
+                                                        }
+                                                        if let isAdmin = user["isAdmin"] as? String {
+                                                            self.userLoggedIn?.user?.isAdmin = Int(isAdmin) == 1 ? true : false
+                                                        }
+                                                        if let isSupplier = user["isSupplier"] as? String {
+                                                            self.userLoggedIn?.user?.isSupplier = Int(isSupplier) == 1 ? true : false
+                                                        }
+                                                        if let displayName = user["displayName"] as? String {
+                                                            self.userLoggedIn?.displayName = displayName
+                                                        }
+                                                        if let avatar = user["avatar"] as? [String: Any] {
+                                                            if let secure_url = avatar["secure_url"] as? String {
+                                                                self.userLoggedIn?.user?.avatar = secure_url
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    DispatchQueue.main.sync {
+                                                        self.finishRefreshingToken()
+                                                    }
+                                                    
+                                                } else if let error = rootDictionary["error"] as? [String: Any] {
+                                                    if let error_en = error["en"] as? String {
+                                                        print(error_en)
+                                                    }
+                                                }
+                                            }
+                                            
+                                        } catch let error as NSError {
+                                            print(error)
+                                        }
+                                        }.resume()
+                                }
+                            }
+                        }
+                        DispatchQueue.main.sync {
+                            self.finishRefreshingToken()
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }.resume()
+            }
+        }
     }
 
-   }
+}
  

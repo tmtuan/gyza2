@@ -22,6 +22,7 @@
 		DE49F8241F5E1FE1008D4FB5 /* IntroPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE49F8231F5E1FE1008D4FB5 /* IntroPageCell.swift */; };
 		DE49F8261F5E28F7008D4FB5 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE49F8251F5E28F7008D4FB5 /* Page.swift */; };
 		DE611B501F58DFD200F00F39 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE611B4F1F58DFD200F00F39 /* ProductViewController.swift */; };
+		DE659CBC1F637BBE00E8AAF3 /* GyzaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE659CBB1F637BBE00E8AAF3 /* GyzaAPI.swift */; };
 		DE915C031F15B068005495F4 /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE915C021F15B068005495F4 /* CustomTabBarController.swift */; };
 		DEA728A41F48152100BD155F /* UserLoggedIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA728A31F48152100BD155F /* UserLoggedIn.swift */; };
 		DEA728A61F483E7C00BD155F /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA728A51F483E7C00BD155F /* AccountViewController.swift */; };
@@ -52,6 +53,7 @@
 		DE49F8231F5E1FE1008D4FB5 /* IntroPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPageCell.swift; sourceTree = "<group>"; };
 		DE49F8251F5E28F7008D4FB5 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		DE611B4F1F58DFD200F00F39 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		DE659CBB1F637BBE00E8AAF3 /* GyzaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyzaAPI.swift; sourceTree = "<group>"; };
 		DE915C021F15B068005495F4 /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		DEA728A31F48152100BD155F /* UserLoggedIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoggedIn.swift; sourceTree = "<group>"; };
 		DEA728A51F483E7C00BD155F /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				DE915C021F15B068005495F4 /* CustomTabBarController.swift */,
 				DECA67561F5A3CE1006F2A3B /* CustomImageView.swift */,
 				DED5FFDA1F5F1C8500690F85 /* LeftPaddedTextField.swift */,
+				DE659CBB1F637BBE00E8AAF3 /* GyzaAPI.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				DE49F81D1F5BF0A2008D4FB5 /* SearchController.swift in Sources */,
 				DEA728A41F48152100BD155F /* UserLoggedIn.swift in Sources */,
 				DE49F8261F5E28F7008D4FB5 /* Page.swift in Sources */,
+				DE659CBC1F637BBE00E8AAF3 /* GyzaAPI.swift in Sources */,
 				DE2960161F109F7E00FABF18 /* Package.swift in Sources */,
 				DE29601A1F11B06500FABF18 /* User.swift in Sources */,
 				DE29600F1F1056B000FABF18 /* PackageCell.swift in Sources */,
